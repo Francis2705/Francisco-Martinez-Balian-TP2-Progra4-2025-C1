@@ -1,0 +1,57 @@
+.card
+{
+    border: none;
+    border-radius: 12px;
+}
+.btn-info:hover, .btn-outline-info:hover
+{
+    background-color: #0dcaf0cc;
+    border-color: #0dcaf0;
+}
+input.form-control
+{
+    background-color: #2a475e !important;
+    border: none;
+    color: white;
+}
+.form-control::placeholder
+{
+    color: #bbb;
+    opacity: 1;
+}
+.boton-clave
+{
+    position: absolute;
+    top: 15%;
+    right: 10px;
+    background: #233b4f; 
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.boton-clave.con-errores
+{
+    top: 4%;
+}
+.boton-clave.con-errores-2
+{
+    top: 8%;
+}
+.boton-clave:hover
+{
+    background: #182937;
+}
+.error-clave
+{
+    position: relative;
+}
+.btn-info
+{
+    position: relative;
+    height: 45px;
+    top: -12px;
+}
+.text-danger
+{
+    font-size: 14px;
+}
