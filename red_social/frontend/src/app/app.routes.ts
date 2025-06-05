@@ -9,7 +9,5 @@ export const routes: Routes = [
         .then((modulo) => modulo.PublicacionesComponent)},
     {path: "mi-perfil", loadComponent: () => import('./pages/mi-perfil/mi-perfil.component')
         .then((modulo) => modulo.MiPerfilComponent)},
-    {path: "bienvenida", loadComponent: () => import('./pages/bienvenida/bienvenida.component')
-        .then((modulo) => modulo.BienvenidaComponent)},
-    {path: "", redirectTo: "bienvenida", pathMatch: "full"}
+    {path: "", redirectTo: "login", pathMatch: "full"}
 ];

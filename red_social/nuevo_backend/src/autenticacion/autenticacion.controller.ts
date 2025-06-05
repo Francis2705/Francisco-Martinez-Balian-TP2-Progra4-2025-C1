@@ -41,27 +41,9 @@ export class AutenticacionController
     }
   }
 
-  @Get()
-  findAll()
+  @Post('login')
+  async login(@Body() body: { correo: string, clave: string })
   {
-    return this.autenticacionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string)
-  {
-    return this.autenticacionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAutenticacionDto: UpdateAutenticacionDto)
-  {
-    return this.autenticacionService.update(+id, updateAutenticacionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) 
-  {
-    return this.autenticacionService.remove(+id);
+    return this.autenticacionService.login(body.correo, body.clave);
   }
 }

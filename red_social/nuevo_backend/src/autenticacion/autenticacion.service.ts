@@ -65,23 +65,22 @@ export class AutenticacionService
       .catch(err => ({ ok: false, error: err.message }));
   }
 
-  findAll()
+  async login(correo: string, clave: string)
   {
-    return `This action returns all autenticacion`;
-  }
+    const usuario = await this.autenticacionModel.findOne({ correo });
 
-  findOne(id: number)
-  {
-    return `This action returns a #${id} autenticacion`;
-  }
+    if (!usuario)
+    {
+      return { ok: false, error: 'mail inexistente' };
+    }
 
-  update(id: number, updateAutenticacionDto: UpdateAutenticacionDto)
-  {
-    return `This action updates a #${id} autenticacion`;
-  }
+    const claveValida = await bcrypt.compare(clave, usuario.clave);
+    if (!claveValida)
+    {
+      return { ok: false, error: 'clave incorrecta' };
+    }
 
-  remove(id: number)
-  {
-    return `This action removes a #${id} autenticacion`;
+    const { clave: _, ...datosUsuario } = usuario.toObject(); //devuelve los datos del usuario sin la clave
+    return { ok: true, data: datosUsuario };
   }
 }
