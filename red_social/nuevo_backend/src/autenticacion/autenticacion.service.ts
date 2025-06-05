@@ -4,6 +4,7 @@ import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Autenticacion, AutenticacionDocument } from './entities/autenticacion.entity';
 import { Model } from 'mongoose';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -11,7 +12,7 @@ import * as fs from 'fs';
 @Injectable()
 export class AutenticacionService
 {
-  constructor(@InjectModel(Autenticacion.name) private autenticacionModel: Model<Autenticacion>){}
+  constructor(@InjectModel(Autenticacion.name) private autenticacionModel: Model<Autenticacion>, private jwtService: JwtService){}
 
   async create(createAutenticacionDto: CreateAutenticacionDto, imagenNombre: string)
   {
@@ -81,6 +82,7 @@ export class AutenticacionService
     }
 
     const { clave: _, ...datosUsuario } = usuario.toObject(); //devuelve los datos del usuario sin la clave
-    return { ok: true, data: datosUsuario };
+    const token = this.jwtService.sign(datosUsuario); //creo el token
+    return { ok: true, token, data: datosUsuario };
   }
 }

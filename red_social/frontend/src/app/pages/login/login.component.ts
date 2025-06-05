@@ -1,6 +1,7 @@
 import { Component, OnInit, signal, ChangeDetectorRef, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit
   mostrarClave: boolean = false;
   cdr = inject(ChangeDetectorRef);
   router = inject(Router);
+  authService = inject(AuthService);
 
   ngOnInit()
   {
@@ -31,43 +33,45 @@ export class LoginComponent implements OnInit
     {
       return this.mensajeLogin.set('Error, formulario inválido');
     }
-
-    try
+    else //pasar todo esta logica al servicio de auth
     {
-      const response = await fetch('http://localhost:3000/autenticacion/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({correo: this.formulario.value.correo, clave: this.formulario.value.clave})
-      });
-
-      const data = await response.json();
-      console.log('Respuesta del backend:', data);
-      if (data.ok)
+      try
       {
-        console.log('login exitoso', data);
-        this.mensajeLogin.set('Sesión iniciada correctamente.');
-        this.cdr.detectChanges();
-        this.router.navigate(['/publicaciones']);
+        const response = await fetch('http://localhost:3000/autenticacion/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({correo: this.formulario.value.correo, clave: this.formulario.value.clave})
+        });
+  
+        const data = await response.json();
+        console.log('Respuesta del backend:', data);
+        if (data.ok)
+        {
+          console.log('login exitoso', data);
+          this.mensajeLogin.set('Sesión iniciada correctamente.');
+          this.cdr.detectChanges();
+          this.router.navigate(['/publicaciones']);
+        }
+        else
+        {
+          if (data.ok === false && data.error === 'mail inexistente')
+          {
+            this.mensajeLogin.set('Error, mail no registrado.');
+            console.log('mail no registrado', data.ok);
+            this.cdr.detectChanges();
+          }
+          else if(data.ok === false && data.error === 'clave incorrecta')
+          {
+            this.mensajeLogin.set('Error, clave incorrecta.');
+            console.log('clave incorrecta', data.ok);
+            this.cdr.detectChanges();
+          }
+        }
       }
-      else
+      catch (error)
       {
-        if (data.ok === false && data.error === 'mail inexistente')
-        {
-          this.mensajeLogin.set('Error, mail no registrado.');
-          console.log('mail no registrado', data.ok);
-          this.cdr.detectChanges();
-        }
-        else if(data.ok === false && data.error === 'clave incorrecta')
-        {
-          this.mensajeLogin.set('Error, clave incorrecta.');
-          console.log('clave incorrecta', data.ok);
-          this.cdr.detectChanges();
-        }
+        console.log('error en el backend', error);
       }
-    }
-    catch (error)
-    {
-      console.log('error en el backend', error);
     }
   }
 
