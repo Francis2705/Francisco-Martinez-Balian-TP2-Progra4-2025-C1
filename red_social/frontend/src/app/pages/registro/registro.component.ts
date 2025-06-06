@@ -1,8 +1,9 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, OnInit, signal, ChangeDetectorRef, inject} from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Usuario } from '../../clases/Usuario';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registro',
@@ -22,6 +23,8 @@ export class RegistroComponent implements OnInit
   cdr = inject(ChangeDetectorRef);
   nombreImagen: string = '';
   mensajeError: boolean = false;
+  authService = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit()
   {
@@ -91,7 +94,9 @@ export class RegistroComponent implements OnInit
           this.registro.set('registro exitoso');
           this.registro_usuario = data.data;
           this.nombreImagen = `http://localhost:3000/uploads/${data.data.imagen}`;
-          this.cdr.detectChanges();
+
+          const dataLogin = await this.authService.login(this.correo?.value, this.clave?.value);
+          this.router.navigate(['/publicaciones']);
         }
         else
         {

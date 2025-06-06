@@ -33,7 +33,7 @@
                 }
             </div>
 
-            <button (click)="login()" [disabled]="!formulario.valid" class="btn btn-info w-100 mb-3">Iniciar sesión</button>
+            <button (click)="loguearse()" [disabled]="!formulario.valid" class="btn btn-info w-100 mb-3">Iniciar sesión</button>
 
             @if (mensajeLogin() != 'Sesión iniciada correctamente.')
             {

@@ -27,50 +27,40 @@ export class LoginComponent implements OnInit
     });
   }
 
-  async login()
+  async loguearse()
   {
     if (!this.formulario?.valid)
     {
       return this.mensajeLogin.set('Error, formulario inválido');
     }
-    else //pasar todo esta logica al servicio de auth
+    else
     {
-      try
+      const correo = this.formulario.value.correo;
+      const clave = this.formulario.value.clave;
+
+      const data = await this.authService.login(correo, clave);
+
+      if (data.ok)
       {
-        const response = await fetch('http://localhost:3000/autenticacion/login', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({correo: this.formulario.value.correo, clave: this.formulario.value.clave})
-        });
-  
-        const data = await response.json();
-        console.log('Respuesta del backend:', data);
-        if (data.ok)
-        {
-          console.log('login exitoso', data);
-          this.mensajeLogin.set('Sesión iniciada correctamente.');
-          this.cdr.detectChanges();
-          this.router.navigate(['/publicaciones']);
-        }
-        else
-        {
-          if (data.ok === false && data.error === 'mail inexistente')
-          {
-            this.mensajeLogin.set('Error, mail no registrado.');
-            console.log('mail no registrado', data.ok);
-            this.cdr.detectChanges();
-          }
-          else if(data.ok === false && data.error === 'clave incorrecta')
-          {
-            this.mensajeLogin.set('Error, clave incorrecta.');
-            console.log('clave incorrecta', data.ok);
-            this.cdr.detectChanges();
-          }
-        }
+        this.mensajeLogin.set('Sesión iniciada correctamente.');
+        this.cdr.detectChanges();
+        this.router.navigate(['/publicaciones']);
       }
-      catch (error)
+      else
       {
-        console.log('error en el backend', error);
+        if (data.error === 'mail inexistente')
+        {
+          this.mensajeLogin.set('Error, mail no registrado.');
+        }
+        else if (data.error === 'clave incorrecta')
+        {
+          this.mensajeLogin.set('Error, clave incorrecta.');
+        }
+        else if (data.error === 'fallo conexion')
+        {
+          this.mensajeLogin.set('Error al conectar con el servidor.');
+        }
+        this.cdr.detectChanges();
       }
     }
   }
