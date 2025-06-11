@@ -10,6 +10,8 @@ export const routes: Routes = [
     {path: "publicaciones", loadComponent: () => import('./pages/publicaciones/publicaciones.component')
         .then((modulo) => modulo.PublicacionesComponent), canActivate: [AuthGuard]},
     {path: "mi-perfil", loadComponent: () => import('./pages/mi-perfil/mi-perfil.component')
-        .then((modulo) => modulo.MiPerfilComponent)},
+        .then((modulo) => modulo.MiPerfilComponent), canActivate: [AuthGuard]},
+    {path: "form-publicacion", loadComponent: () => import('./pages/form-publicacion/form-publicacion.component')
+        .then((modulo) => modulo.FormPublicacionComponent), canActivate: [AuthGuard]},
     {path: "", redirectTo: "login", pathMatch: "full"}
 ];

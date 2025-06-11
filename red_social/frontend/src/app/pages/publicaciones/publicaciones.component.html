@@ -1,3 +1,31 @@
 <p>publicaciones works!</p>
 <button (click)="mostrar()">mostrar</button>
 <p>hola {{this.authService.usuarioLogueado.nombre}}</p>
+
+<button routerLink="/form-publicacion">crear publicacion</button>
+<br><br>
+<button (click)="cerrarSesion()">Cerrar sesion</button>
+
+<div>
+    <h2>Publicaciones</h2>
+
+    <label>Ordenar por:</label>
+    <select [(ngModel)]="orden" (change)="cambiarOrden(orden)">
+        <option value="fecha">Fecha (mas reciente)</option>
+        <option value="likes">Me gusta (mayor a menor)</option>
+    </select>
+
+    <select [(ngModel)]="usuarioSeleccionado" (change)="cambiarUsuario(usuarioSeleccionado)">
+        <option [ngValue]="null">Todos los usuarios</option>
+        <option *ngFor="let usuario of usuarioTotales | async" [ngValue]="usuario.correo">
+            {{ usuario.correo }}
+        </option>
+    </select>
+
+    <div *ngFor="let pub of publicaciones">
+        <app-publicacion [publicacion]="pub"></app-publicacion>
+    </div>
+
+    <button (click)="paginaAnterior()" [disabled]="offset === 0">Anterior</button>
+    <button (click)="siguientePagina()">Siguiente</button>
+</div>

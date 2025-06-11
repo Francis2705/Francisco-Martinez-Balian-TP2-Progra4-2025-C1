@@ -46,4 +46,10 @@ export class AutenticacionController
   {
     return this.autenticacionService.login(body.correo, body.clave);
   }
+
+  @Get('usuarios')
+  async traerUsuarios()
+  {
+    return this.autenticacionService.traerUsuarios();
+  }
 }

@@ -85,4 +85,15 @@ export class AutenticacionService
     const token = this.jwtService.sign(datosUsuario); //creo el token
     return { ok: true, token, data: datosUsuario };
   }
+
+  async traerUsuarios()
+  {
+    const usuarios = await this.autenticacionModel.find({}, { correo: 1, _id: 0 });
+    const data = {
+      ok: true,
+      listaUsuarios: usuarios
+    };
+
+    return data;
+  }
 }

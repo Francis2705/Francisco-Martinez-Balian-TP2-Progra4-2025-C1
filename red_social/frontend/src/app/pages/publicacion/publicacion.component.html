@@ -1,0 +1,21 @@
+<div class="card">
+    <h3>{{ publicacion.titulo }}</h3>
+    <img *ngIf="publicacion.imagen" [src]="'http://localhost:3000/uploads/publicaciones/' + publicacion.imagen" width="300" />
+    <p>{{ publicacion.descripcion }}</p>
+    <p>Autor: {{ publicacion.nombreUsuario }}</p>
+
+    <button (click)="likear()">{{ 'Like' }} ({{ publicacion.meGustas.length }})</button>
+    <br>
+    <button (click)="deslikear()">{{ 'Dislike' }} ({{ publicacion.meGustas.length }})</button>
+    <br>
+    <button (click)="comentar()">Comentar</button>
+
+    <div *ngIf="publicacion.comentarios.length > 0">
+    <h4>Comentarios:</h4>
+    <ul>
+        <li *ngFor="let comentario of publicacion.comentarios">
+        <strong>{{ comentario.usuario.nombre }}</strong>: {{ comentario.texto }}
+        </li>
+    </ul>
+    </div>
+</div>

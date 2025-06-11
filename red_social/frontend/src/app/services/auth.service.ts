@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 export class AuthService
 {
   usuarioLogueado: any = null;
+  usuariosTotales: any[] = [];
 
   constructor(private router: Router) {}
 
@@ -57,5 +58,12 @@ export class AuthService
   getUsuario()
   {
     return JSON.parse(localStorage.getItem('usuario') || '{}');
+  }
+
+  async getUsuariosTotales(): Promise<any>
+  {
+    const response = await fetch('http://localhost:3000/autenticacion/usuarios');
+    const data = await response.json();
+    return data.listaUsuarios;
   }
 }

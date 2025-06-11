@@ -1,0 +1,14 @@
+<h2>Crear publicación</h2>
+
+<form [formGroup]="formulario" (ngSubmit)="enviar()">
+    <label>Título:</label>
+    <input type="text" formControlName="titulo" />
+
+    <label>Descripción:</label>
+    <textarea formControlName="descripcion"></textarea>
+
+    <label>Imagen:</label>
+    <input type="file" (change)="onFileChange($event)" />
+
+    <button type="submit">Publicar</button>
+</form>
