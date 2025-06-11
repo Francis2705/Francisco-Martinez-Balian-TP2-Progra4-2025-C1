@@ -23,4 +23,7 @@
     </div>
 
     <button *ngIf="hayMasComentarios" (click)="cargarComentarios()">Cargar más</button>
+    <button *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario || 
+        this.authService.usuarioLogueado.tipo === 'administrador'" (click)="eliminar()">Eliminar
+    </button>
 </div>

@@ -19,4 +19,5 @@ export interface Publicacion
     createdAt: Date;
     cantidadMeGustas: number;
     nombreUsuario: string;
+    correoUsuario?: string;
 }

@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Publicacion } from '../pages/publicacion';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,14 @@ export class PublicacionesService
   private baseUrl = 'http://localhost:3000/publicaciones';
   authService = inject(AuthService);
 
+  private _refrescarListado$ = new Subject<void>();
+  refrescarListado$ = this._refrescarListado$.asObservable();
+
   constructor(private http: HttpClient) {}
+
+  emitirRecarga() {
+    this._refrescarListado$.next();
+  }
 
   darMeGusta(idPublicacion: string, idUsuario: string)
   {
@@ -38,4 +45,9 @@ export class PublicacionesService
   {
     return this.http.post(`${this.baseUrl}/${publicacionId}/comentarios`, comentario);
   } //listo
+
+  eliminarPublicacion(publicacionId: string)
+  {
+    return this.http.delete(`${this.baseUrl}/${publicacionId}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, inject, EventEmitter, Output} from '@angular/core';
 import { Publicacion } from '../publicacion';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { AuthService } from '../../services/auth.service';
@@ -72,5 +72,12 @@ export class PublicacionComponent
         }
       }
     );
+  }
+
+  eliminar()
+  {
+    this.publicacionesService.eliminarPublicacion(this.publicacion._id).subscribe(() => {
+      this.publicacionesService.emitirRecarga();
+    });
   }
 }

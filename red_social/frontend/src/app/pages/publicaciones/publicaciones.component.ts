@@ -29,6 +29,9 @@ export class PublicacionesComponent
   {
     this.authService.usuarioLogueado = this.authService.getUsuario();
     this.cargarPublicaciones();
+    this.publicacionesService.refrescarListado$.subscribe(() => {
+      this.cargarPublicaciones(); // Se vuelve a llamar cuando llega la señal
+    });
     // this.authService.autoLogout(120); //cuando reinicio se me reincia el temporizador
   } //listo
 

@@ -133,4 +133,13 @@ export class PublicacionesService
       { new: true }
     );
   } //listo
+
+  async eliminar(publicacionId: string)
+  {
+    return this.publicacionModel.findByIdAndUpdate(
+      publicacionId,
+      { activo: false },
+      { new: true }
+    );
+  }
 }

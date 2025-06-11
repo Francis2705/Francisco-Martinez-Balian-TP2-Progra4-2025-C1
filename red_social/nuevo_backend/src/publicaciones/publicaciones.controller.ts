@@ -68,4 +68,10 @@ export class PublicacionesController
   {
     return this.publicacionesService.agregarComentario(publicacionId, comentarioDto);
   } //listo
+
+  @Delete(':id')
+  async eliminar(@Param('id') publicacionId: string)
+  {
+    return this.publicacionesService.eliminar(publicacionId);
+  }
 }
