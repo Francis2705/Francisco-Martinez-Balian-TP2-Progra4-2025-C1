@@ -5,6 +5,7 @@ import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
 import { UpdatePublicacioneDto } from './dto/update-publicacione.dto';
 import { Publicacione } from './entities/publicacione.entity';
 import * as mongoose from 'mongoose';
+import { CreateComentarioDto } from './dto/create-comentario.dto';
 
 @Injectable()
 export class PublicacionesService
@@ -111,7 +112,25 @@ export class PublicacionesService
         }
       }
     ]);
-    
+
     return publicacion[0]?.comentarios || [];
-  }
+  } //listo
+
+  async agregarComentario(publicacionId: string, comentarioDto: CreateComentarioDto)
+  {
+    const comentario = {
+      texto: comentarioDto.texto,
+      usuario: {
+        _id: new mongoose.Types.ObjectId(comentarioDto.usuarioId),
+        nombre: comentarioDto.nombreUsuario,
+      },
+      createdAt: new Date()
+    };
+
+    return this.publicacionModel.findByIdAndUpdate(
+      publicacionId,
+      { $push: { comentarios: comentario } },
+      { new: true }
+    );
+  } //listo
 }

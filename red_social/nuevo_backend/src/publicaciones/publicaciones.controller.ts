@@ -8,6 +8,7 @@ import { PublicacionesService } from './publicaciones.service';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
 import { UpdatePublicacioneDto } from './dto/update-publicacione.dto';
 import { Request } from 'express';
+import { CreateComentarioDto } from './dto/create-comentario.dto';
 
 @Controller('publicaciones')
 export class PublicacionesController
@@ -57,12 +58,14 @@ export class PublicacionesController
   } //listo
 
   @Get(':id/comentarios')
-  async obtenerComentarios(
-    @Param('id') publicacionId: string,
-    @Query('offset') offset: number,
-    @Query('limit') limit: number
-  )
+  async obtenerComentarios(@Param('id') publicacionId: string, @Query('offset') offset: number, @Query('limit') limit: number)
   {
     return this.publicacionesService.obtenerComentarios(publicacionId, offset, limit);
-  }
+  } //listo
+
+  @Post(':id/comentarios')
+  async comentar(@Param('id') publicacionId: string, @Body() comentarioDto: CreateComentarioDto)
+  {
+    return this.publicacionesService.agregarComentario(publicacionId, comentarioDto);
+  } //listo
 }

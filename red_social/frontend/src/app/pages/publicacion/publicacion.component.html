@@ -8,7 +8,10 @@
     <br>
     <button (click)="deslikear()">{{ 'Dislike' }} ({{ publicacion.meGustas.length }})</button>
     <br>
-    <button (click)="comentar()">Comentar</button>
+    <div class="comentario-formulario">
+        <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></textarea>
+        <button (click)="comentar()">Comentar</button>
+    </div>
 
     <div *ngIf="comentarios.length > 0">
         <h4>Comentarios:</h4>

@@ -31,9 +31,11 @@ export class PublicacionesService
 
   getComentarios(publicacionId: string, offset: number, limit: number): Observable<any[]>
   {
-    return this.http.get<any[]>(`/api/publicaciones/${publicacionId}/comentarios`, {
-      params: { offset, limit }
-    });
-  }
+    return this.http.get<any[]>(`${this.baseUrl}/${publicacionId}/comentarios`, {params: { offset, limit }});
+  } //listo
 
+  agregarComentario(publicacionId: string, comentario: { texto: string, usuarioId: string, nombreUsuario: string })
+  {
+    return this.http.post(`${this.baseUrl}/${publicacionId}/comentarios`, comentario);
+  } //listo
 }

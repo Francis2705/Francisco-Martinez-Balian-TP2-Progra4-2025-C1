@@ -2,12 +2,12 @@ import { Component, Input, inject } from '@angular/core';
 import { Publicacion } from '../publicacion';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { AuthService } from '../../services/auth.service';
-import { NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-publicacion',
-  imports: [ReactiveFormsModule, NgIf, NgFor],
+  imports: [ReactiveFormsModule, NgIf, NgFor, FormsModule],
   templateUrl: './publicacion.component.html',
   styleUrl: './publicacion.component.css'
 })
@@ -19,8 +19,12 @@ export class PublicacionComponent
 
   comentarios: any[] = [];
   comentariosOffset = 0;
-  comentariosLimit = 5;
+  comentariosLimit = 3;
   hayMasComentarios = true;
+
+  nuevoComentario = '';
+  usuarioId = this.authService.usuarioLogueado._id;
+  nombreUsuario = this.authService.usuarioLogueado.nombre;
 
   ngOnInit()
   {
@@ -41,7 +45,19 @@ export class PublicacionComponent
 
   comentar()
   {
-    
+    if (!this.nuevoComentario.trim()) return;
+
+    this.publicacionesService.agregarComentario(this.publicacion._id, {
+      texto: this.nuevoComentario,
+      usuarioId: this.usuarioId,
+      nombreUsuario: this.nombreUsuario
+    }).subscribe(() => {
+      this.nuevoComentario = '';
+      this.comentarios = [];
+      this.comentariosOffset = 0;
+      this.hayMasComentarios = true;
+      this.cargarComentarios();
+    });
   }
 
   cargarComentarios(): void
@@ -50,9 +66,11 @@ export class PublicacionComponent
       .subscribe(nuevosComentarios => {
         this.comentarios.push(...nuevosComentarios);
         this.comentariosOffset += this.comentariosLimit;
-        if (nuevosComentarios.length < this.comentariosLimit) {
+        if (nuevosComentarios.length < this.comentariosLimit)
+        {
           this.hayMasComentarios = false;
         }
-      });
+      }
+    );
   }
 }
