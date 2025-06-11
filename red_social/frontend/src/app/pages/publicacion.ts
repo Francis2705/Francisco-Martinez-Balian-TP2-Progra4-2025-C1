@@ -10,7 +10,7 @@ export interface Publicacion
         nombre: string;
         foto: string;
     };
-    meGustas: string[]; // Array de IDs de usuario
+    meGustas: string[];
     comentarios:
     {
         usuario: { _id: string; nombre: string; };

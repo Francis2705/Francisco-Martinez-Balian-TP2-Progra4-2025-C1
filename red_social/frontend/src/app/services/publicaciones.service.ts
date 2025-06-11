@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Publicacion } from '../pages/publicacion';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,17 +24,16 @@ export class PublicacionesService
     return this.http.delete<Publicacion>(`${this.baseUrl}/${idPublicacion}/unlike`, { body: {idUsuario} });
   } //listo
 
-  listarPublicaciones(orden: 'fecha' | 'likes', offset: number, limit: number, correoUsuario: string | null)
+  listarPublicaciones(orden: 'fecha' | 'likes', offset: number, limit: number, correoUsuario: string)
   {
-    console.log(correoUsuario);
-    if (correoUsuario !== null)
-    {
-      return this.http.get<Publicacion[]>(`${this.baseUrl}?orden=${orden}&offset=${offset}&limit=${limit}`);
-    }
-    else
-    {
-      return this.http.get<Publicacion[]>(`${this.baseUrl}?orden=${orden}&offset=${offset}&limit=${limit}&correoUsuario=${correoUsuario}`);
-    }
+    return this.http.get<Publicacion[]>(`${this.baseUrl}?orden=${orden}&offset=${offset}&limit=${limit}&correoUsuario=${correoUsuario}`);
+  } //listo
+
+  getComentarios(publicacionId: string, offset: number, limit: number): Observable<any[]>
+  {
+    return this.http.get<any[]>(`/api/publicaciones/${publicacionId}/comentarios`, {
+      params: { offset, limit }
+    });
   }
 
 }

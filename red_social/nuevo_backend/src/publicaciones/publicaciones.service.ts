@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
 import { UpdatePublicacioneDto } from './dto/update-publicacione.dto';
 import { Publicacione } from './entities/publicacione.entity';
+import * as mongoose from 'mongoose';
 
 @Injectable()
 export class PublicacionesService
@@ -51,9 +52,28 @@ export class PublicacionesService
     );
   } //listo
 
-  async listar(orden: string, offset: number, limit: number, correoUsuario: string | null)
+  async listar(orden: string, offset: number, limit: number, correoUsuario: string)
   {
-    const match: any = { activo: true };
+    if (correoUsuario === 'Todos los usuarios')
+    {
+      correoUsuario = '';
+    }
+
+    let match: any = null;
+
+    if (correoUsuario !== '')
+    {
+      match = {
+        activo: true,
+        correoUsuario: correoUsuario
+      };
+    }
+    else
+    {
+      match = {
+        activo: true
+      };
+    }
 
     const pipeline: any[] = [
       { $match: match },
@@ -77,5 +97,21 @@ export class PublicacionesService
     pipeline.push({ $limit: Number(limit) });
 
     return this.publicacionModel.aggregate(pipeline);
+  } //listo
+
+  async obtenerComentarios(publicacionId: string, offset: number, limit: number)
+  {
+    const publicacion = await this.publicacionModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(publicacionId) } },
+      {
+        $project: {
+          comentarios: {
+            $slice: ['$comentarios', offset, limit]
+          }
+        }
+      }
+    ]);
+    
+    return publicacion[0]?.comentarios || [];
   }
 }

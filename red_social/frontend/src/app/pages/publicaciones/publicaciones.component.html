@@ -16,7 +16,7 @@
     </select>
 
     <select [(ngModel)]="usuarioSeleccionado" (change)="cambiarUsuario(usuarioSeleccionado)">
-        <option [ngValue]="null">Todos los usuarios</option>
+        <option [ngValue]="">Todos los usuarios</option>
         <option *ngFor="let usuario of usuarioTotales | async" [ngValue]="usuario.correo">
             {{ usuario.correo }}
         </option>

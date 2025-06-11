@@ -23,7 +23,7 @@ export class PublicacionesComponent
   orden: 'fecha' | 'likes' = 'fecha';
   offset = 0;
   limit = 5;
-  usuarioSeleccionado: string | null = null;
+  usuarioSeleccionado: string = 'Todos los usuarios';
 
   ngOnInit(): void
   {
@@ -60,20 +60,19 @@ export class PublicacionesComponent
     this.cargarPublicaciones();
   } //listo
 
-  cargarPublicaciones() //agregar al usuario seleccionado
+  cambiarUsuario(correoUsuario: string)
+  {
+    this.offset = 0;
+    this.usuarioSeleccionado = correoUsuario;
+    this.cargarPublicaciones();
+  } //listo
+
+  cargarPublicaciones()
   {
     this.publicacionesService.listarPublicaciones(this.orden, this.offset, this.limit, this.usuarioSeleccionado)
       .subscribe(data => {
         console.log('Publicaciones recibidas:', data);
         this.publicaciones = data;
       });
-  }
-
-  cambiarUsuario(correoUsuario: string | null)
-  {
-    this.offset = 0; // reiniciamos la paginación si es necesario
-    this.usuarioSeleccionado = correoUsuario;
-    this.cargarPublicaciones();
-  }
-
+  } //listo
 }

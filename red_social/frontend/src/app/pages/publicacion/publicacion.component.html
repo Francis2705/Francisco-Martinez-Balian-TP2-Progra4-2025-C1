@@ -10,12 +10,14 @@
     <br>
     <button (click)="comentar()">Comentar</button>
 
-    <div *ngIf="publicacion.comentarios.length > 0">
-    <h4>Comentarios:</h4>
-    <ul>
-        <li *ngFor="let comentario of publicacion.comentarios">
-        <strong>{{ comentario.usuario.nombre }}</strong>: {{ comentario.texto }}
-        </li>
-    </ul>
+    <div *ngIf="comentarios.length > 0">
+        <h4>Comentarios:</h4>
+        <ul>
+            <li *ngFor="let comentario of comentarios">
+            <strong>{{ comentario.usuario?.nombre || 'Anónimo' }}</strong>: {{ comentario.texto }}
+            </li>
+        </ul>
     </div>
+
+    <button *ngIf="hayMasComentarios" (click)="cargarComentarios()">Cargar más</button>
 </div>

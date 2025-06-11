@@ -51,8 +51,18 @@ export class PublicacionesController
 
   @Get()
   async listar(@Query('orden') orden: string, @Query('offset') offset: number,
-    @Query('limit') limit: number, @Query('correoUsuario') correoUsuario: string | null)
+    @Query('limit') limit: number, @Query('correoUsuario') correoUsuario: string)
   {
     return this.publicacionesService.listar(orden, offset, limit, correoUsuario);
+  } //listo
+
+  @Get(':id/comentarios')
+  async obtenerComentarios(
+    @Param('id') publicacionId: string,
+    @Query('offset') offset: number,
+    @Query('limit') limit: number
+  )
+  {
+    return this.publicacionesService.obtenerComentarios(publicacionId, offset, limit);
   }
 }

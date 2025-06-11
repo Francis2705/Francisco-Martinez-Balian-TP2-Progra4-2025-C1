@@ -2,7 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { Publicacion } from '../publicacion';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { AuthService } from '../../services/auth.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModel, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
@@ -16,6 +16,16 @@ export class PublicacionComponent
   @Input() publicacion!: Publicacion;
   publicacionesService = inject(PublicacionesService);
   authService = inject(AuthService);
+
+  comentarios: any[] = [];
+  comentariosOffset = 0;
+  comentariosLimit = 5;
+  hayMasComentarios = true;
+
+  ngOnInit()
+  {
+    this.cargarComentarios();
+  }
 
   likear()
   {
@@ -32,5 +42,17 @@ export class PublicacionComponent
   comentar()
   {
     
+  }
+
+  cargarComentarios(): void
+  {
+    this.publicacionesService.getComentarios(this.publicacion._id, this.comentariosOffset, this.comentariosLimit)
+      .subscribe(nuevosComentarios => {
+        this.comentarios.push(...nuevosComentarios);
+        this.comentariosOffset += this.comentariosLimit;
+        if (nuevosComentarios.length < this.comentariosLimit) {
+          this.hayMasComentarios = false;
+        }
+      });
   }
 }
