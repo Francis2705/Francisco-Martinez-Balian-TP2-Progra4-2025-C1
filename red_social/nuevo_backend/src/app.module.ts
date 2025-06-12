@@ -14,9 +14,11 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 // })
 // export class AppModule {}
 
+//"start": "nest start", -> en el package.json por "start": "node dist/main",
+
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), MongooseModule.forRoot('mongodb+srv://franciscomartinezbalian:EXhOcwIAShrglx8W@cluster0.h17xfdj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'), AutenticacionModule, PublicacionesModule, UsuariosModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }),MongooseModule.forRoot('mongodb+srv://franciscomartinezbalian:EXhOcwIAShrglx8W@cluster0.h17xfdj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'), AutenticacionModule, PublicacionesModule, UsuariosModule],
   controllers: [AppController],
   providers: [AppService],
 })
