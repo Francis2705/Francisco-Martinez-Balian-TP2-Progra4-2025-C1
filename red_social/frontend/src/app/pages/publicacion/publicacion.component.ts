@@ -32,11 +32,17 @@ export class PublicacionComponent
 
   ngOnInit()
   {
+    this.authService.usuarioLogueado = this.authService.getUsuario();
+    this.usuarioId = this.authService.usuarioLogueado._id;
+    this.nombreUsuario = this.authService.usuarioLogueado.nombre;
     this.cargarComentarios();
   }
 
   likear()
   {
+    this.authService.usuarioLogueado = this.authService.getUsuario();
+    console.log(this.authService.getUsuario());
+    console.log(this.publicacion._id, this.authService.usuarioLogueado._id);
     this.publicacionesService.darMeGusta(this.publicacion._id, this.authService.usuarioLogueado._id)
       .subscribe(actualizada => {this.publicacion.meGustas = actualizada.meGustas;});
   }

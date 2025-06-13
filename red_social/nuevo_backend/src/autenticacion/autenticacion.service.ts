@@ -64,29 +64,39 @@ export class AutenticacionService
     return nuevoUsuario.save()
       .then(data => ({ ok: true, data }))
       .catch(err => ({ ok: false, error: err.message }));
-  }
+  } //listo
+
+  async traerUsuarios()
+  {
+    const usuarios = await this.autenticacionModel.find({}, { correo: 1, _id: 0 });
+    const data = {
+      ok: true,
+      listaUsuarios: usuarios
+    };
+
+    return data;
+  } //listo
 
   async login(correo: string, clave: string)
   {
     const usuario = await this.autenticacionModel.findOne({ correo });
-
-    if (!usuario)
-    {
-      return { ok: false, error: 'mail inexistente' };
-    }
+    if (!usuario) { return { ok: false, error: 'mail inexistente' }; }
 
     const claveValida = await bcrypt.compare(clave, usuario.clave);
-    if (!claveValida)
-    {
-      return { ok: false, error: 'clave incorrecta' };
-    }
+    if (!claveValida) { return { ok: false, error: 'clave incorrecta' }; }
 
-    // const { clave: _, ...datosUsuario } = usuario.toObject(); //devuelve los datos del usuario sin la clave
-    // const token = this.jwtService.sign(datosUsuario); //creo el token
-    // return { ok: true, token, data: datosUsuario };
-
-    const payload = { sub: usuario._id, correo: usuario.correo };
-    const token = this.jwtService.sign(payload, { expiresIn: '10s' }); // ← IMPORTANTE
+    const payload = { 
+      sub: usuario._id,
+      apellido: usuario.apellido,
+      correo: usuario.correo,
+      descripcion: usuario.descripcion,
+      fecha_nacimiento: usuario.fecha_nacimiento,
+      imagen: usuario.imagen,
+      nombre: usuario.nombre,
+      nombre_usuario: usuario.nombre_usuario,
+      tipo: usuario.tipo
+    };
+    const token = this.jwtService.sign(payload, { expiresIn: '60s' });
 
     return {
       ok: true,
@@ -103,16 +113,23 @@ export class AutenticacionService
         tipo: usuario.tipo
       }
     };
-  }
+  } //listo
 
-  async traerUsuarios()
+  generarToken(usuario: any): string
   {
-    const usuarios = await this.autenticacionModel.find({}, { correo: 1, _id: 0 });
-    const data = {
-      ok: true,
-      listaUsuarios: usuarios
+    const payload = {
+      sub: usuario._id,
+      _id: usuario._id,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      correo: usuario.correo,
+      nombre_usuario: usuario.nombre_usuario,
+      fecha_nacimiento: usuario.fecha_nacimiento,
+      descripcion: usuario.descripcion,
+      imagen: usuario.imagen,
+      tipo: usuario.tipo
     };
 
-    return data;
+    return this.jwtService.sign(payload, { expiresIn: '60s' });
   }
 }

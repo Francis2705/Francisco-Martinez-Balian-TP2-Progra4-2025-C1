@@ -1,11 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors,
-  UploadedFile, BadRequestException, ValidationPipe } from '@nestjs/common';
+  UploadedFile, BadRequestException, ValidationPipe, 
+  UseGuards,
+  Request} from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
 import { CreateAutenticacionDto } from './dto/create-autenticacion.dto';
 import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('autenticacion')
 export class AutenticacionController
@@ -39,17 +42,31 @@ export class AutenticacionController
       console.error(error);
       throw new BadRequestException('Error en el servidor: ' + error.message);
     }
-  }
+  } //listo
 
   @Post('login')
   async login(@Body() body: { correo: string, clave: string })
   {
     return this.autenticacionService.login(body.correo, body.clave);
-  }
+  } //listo
 
   @Get('usuarios')
   async traerUsuarios()
   {
     return this.autenticacionService.traerUsuarios();
+  } //listo
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('refresh')
+  refreshToken(@Request() req)
+  {
+    const user = req.user; // viene del JWT validado
+    const newToken = this.autenticacionService.generarToken(user);
+
+    return {
+      ok: true,
+      token: newToken,
+      data: user,
+    };
   }
 }

@@ -19,7 +19,9 @@ export class MiPerfilComponent
 
   ngOnInit()
   {
+    this.auth.usuarioLogueado = this.auth.getUsuario();
     this.cargarPublicaciones();
+    this.auth.verificarSesionActiva();
   }
 
   get imagenUrl(): string

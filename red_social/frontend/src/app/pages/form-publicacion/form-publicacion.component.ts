@@ -20,6 +20,7 @@ export class FormPublicacionComponent
 
   constructor()
   {
+    this.authService.usuarioLogueado = this.authService.getUsuario();
     this.formulario = this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],

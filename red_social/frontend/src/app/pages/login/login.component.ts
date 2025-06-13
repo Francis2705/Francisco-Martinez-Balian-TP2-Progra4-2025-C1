@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit
       clave: new FormControl('', {validators: [Validators.required, Validators.minLength(8), Validators.maxLength(20),
         Validators.pattern('.*[A-Z].*'), Validators.pattern('.*\\d.*')]})
     });
-  }
+  } //listo
 
   async loguearse()
   {
@@ -71,12 +71,12 @@ export class LoginComponent implements OnInit
       correo: usuario + '@gmail.com',
       clave: 'Hola1234'
     });
-  }
+  } //listo
 
   verClave()
   {
     this.mostrarClave = !this.mostrarClave;
-  }
+  } //listo
 
   get correo() {return this.formulario?.get('correo');}
   get clave() {return this.formulario?.get('clave');}

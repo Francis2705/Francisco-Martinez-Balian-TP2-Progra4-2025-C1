@@ -9,91 +9,155 @@ export class AuthService
   usuarioLogueado: any = null;
   usuariosTotales: any[] = [];
 
+  private timeoutLogout: any;
+  private timeoutModal: any;
+
   constructor(private router: Router) {}
 
   async login(correo: string, clave: string): Promise<any>
   {
+    const response = await fetch('http://localhost:3000/autenticacion/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ correo, clave })
+    });
+
+    const data = await response.json();
+
+    if (data.ok)
+    {
+      this.setSession(data.token, data.data);
+    }
+
+    return data;
+  }
+
+  setSession(token: string, usuario: any): void
+  {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expTimestamp = payload.exp * 1000;
+
+    localStorage.setItem('token', token);
+    console.log(usuario);
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('expiracion', expTimestamp.toString());
+
+    this.usuarioLogueado = usuario;
+
+    const tiempoRestante = expTimestamp - Date.now();
+
+    this.autoLogout(tiempoRestante / 1000);
+    this.programarRenovacionToken(tiempoRestante / 1000);
+  }
+
+  programarRenovacionToken(segundos: number): void
+  {
+    clearTimeout(this.timeoutModal);
+    const tiempoAntes = segundos - 30;
+    if (tiempoAntes > 0)
+    {
+      this.timeoutModal = setTimeout(() => {
+        const continuar = confirm('¿Querés seguir conectado?'); // Podés cambiar esto por un modal Angular real
+
+        if (continuar)
+        {
+          this.renovarToken();
+        }
+        else
+        {
+          this.logout();
+        }
+      }, tiempoAntes * 1000);
+    }
+  }
+
+  async renovarToken(): Promise<void>
+  {
+    const token = localStorage.getItem('token');
     try
     {
-      const response = await fetch('http://localhost:3000/autenticacion/login', {
+      const response = await fetch('http://localhost:3000/autenticacion/refresh', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ correo, clave })
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
       });
 
       const data = await response.json();
 
       if (data.ok)
       {
-        const payload = JSON.parse(atob(data.token.split('.')[1]));
-        const expTimestamp = payload.exp * 1000;
-
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('usuario', JSON.stringify(data.data));
-        localStorage.setItem('expiracion', expTimestamp.toString());
-        this.usuarioLogueado = data.data;
-
-        const tiempoRestante = expTimestamp - Date.now();
-        this.autoLogout(tiempoRestante / 1000);
+        this.setSession(data.token, data.data);
       }
-
-      return data;
+      else
+      {
+        this.logout();
+      }
     }
     catch (error)
     {
-      return { ok: false, error: 'fallo conexion' };
+      this.logout();
     }
   }
 
   logout()
   {
+    clearTimeout(this.timeoutLogout);
+    clearTimeout(this.timeoutModal);
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('expiracion');
     this.usuarioLogueado = null;
     this.router.navigate(['/login']);
-  }
+  } //listo
 
-  // isAuthenticated(): boolean
-  // {
-  //   return !!localStorage.getItem('token');
-  // }
-  isAuthenticated(): boolean {
-  const token = localStorage.getItem('token');
-  const expiracion = Number(localStorage.getItem('expiracion'));
+  isAuthenticated(): boolean
+  {
+    const token = localStorage.getItem('token');
+    const expiracion = Number(localStorage.getItem('expiracion'));
 
-  if (!token || !expiracion) return false;
-  return Date.now() < expiracion;
+    if (!token || !expiracion) return false;
+    return Date.now() < expiracion;
 }
 
-  autoLogout(segundos: number): void {
-    setTimeout(() => {
+  autoLogout(segundos: number): void
+  {
+    clearTimeout(this.timeoutLogout);
+    this.timeoutLogout = setTimeout(() => {
       this.logout();
       alert('Tu sesión ha expirado por inactividad.');
     }, segundos * 1000);
   }
 
-  // getUsuario()
-  // {
-  //   return JSON.parse(localStorage.getItem('usuario') || '{}');
-  // }
-  getUsuario(): any {
-    if (!this.usuarioLogueado) {
+  getUsuario(): any
+  {
+    if (!this.usuarioLogueado)
+    {
       const usuarioString = localStorage.getItem('usuario');
-      if (usuarioString) {
+      if (usuarioString)
+      {
         this.usuarioLogueado = JSON.parse(usuarioString);
       }
     }
     return this.usuarioLogueado;
   }
 
-  verificarSesionActiva(): void {
+  verificarSesionActiva(): void
+  {
     const expiracion = Number(localStorage.getItem('expiracion'));
-    if (this.isAuthenticated()) {
+    const token = localStorage.getItem('token');
+    const usuario = localStorage.getItem('usuario');
+
+    if (this.isAuthenticated())
+    {
       const tiempoRestante = expiracion - Date.now();
+      this.usuarioLogueado = usuario ? JSON.parse(usuario) : null;
       this.autoLogout(tiempoRestante / 1000);
-      this.getUsuario(); // Recupera usuario si es necesario
-    } else {
+      this.programarRenovacionToken(tiempoRestante / 1000);
+    }
+    else
+    {
       this.logout();
     }
   }
@@ -103,5 +167,5 @@ export class AuthService
     const response = await fetch('http://localhost:3000/autenticacion/usuarios');
     const data = await response.json();
     return data.listaUsuarios;
-  }
+  } //listo
 }

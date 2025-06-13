@@ -56,7 +56,8 @@ export class PublicacionesComponent
 
   mostrar()
   {
-    console.log(this.authService.usuarioLogueado)
+    this.authService.usuarioLogueado = this.authService.getUsuario();
+    console.log(this.authService.usuarioLogueado);
   } //listo
 
   cerrarSesion()
