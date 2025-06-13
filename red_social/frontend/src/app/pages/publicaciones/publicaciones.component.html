@@ -1,5 +1,8 @@
 <p>publicaciones works!</p>
 <button (click)="mostrar()">mostrar</button>
+<br>
+<br>
+<button routerLink="/mi-perfil">Mi perfil</button>
 <p>hola {{this.authService.usuarioLogueado.nombre}}</p>
 
 <button routerLink="/form-publicacion">crear publicacion</button>
@@ -24,8 +27,17 @@
 
     <div *ngFor="let pub of publicaciones">
         <app-publicacion [publicacion]="pub"></app-publicacion>
+        <button (click)="abrirModal(pub)">Ver en grande</button> <!--agregado-->
     </div>
 
     <button (click)="paginaAnterior()" [disabled]="offset === 0">Anterior</button>
     <button (click)="siguientePagina()">Siguiente</button>
+
+    <!-- Modal de publicación ampliada -->
+    <div class="modal-backdrop" *ngIf="publicacionSeleccionada">
+        <div class="modal-contenido">
+            <span class="cerrar" (click)="cerrarModal()">&times;</span>
+            <app-publicacion [publicacion]="publicacionSeleccionada"></app-publicacion>
+        </div>
+    </div>
 </div>

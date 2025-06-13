@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
@@ -141,5 +141,11 @@ export class PublicacionesService
       { activo: false },
       { new: true }
     );
-  }
+  } //listo
+
+  async actualizar(id: string, datos: { titulo?: string; descripcion?: string })
+  {
+    const actualizada = await this.publicacionModel.findByIdAndUpdate(id, datos, { new: true });
+    return actualizada;
+  } //listo
 }

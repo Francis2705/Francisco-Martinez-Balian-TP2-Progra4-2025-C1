@@ -10,7 +10,7 @@ import { AsyncAction } from 'rxjs/internal/scheduler/AsyncAction';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [RouterLink, FormsModule, NgFor, PublicacionComponent, AsyncPipe],
+  imports: [RouterLink, FormsModule, NgFor, PublicacionComponent, AsyncPipe, NgIf],
   templateUrl: './publicaciones.component.html',
   styleUrl: './publicaciones.component.css'
 })
@@ -25,6 +25,8 @@ export class PublicacionesComponent
   limit = 5;
   usuarioSeleccionado: string = 'Todos los usuarios';
 
+  publicacionSeleccionada: any = null;
+
   ngOnInit(): void
   {
     this.authService.usuarioLogueado = this.authService.getUsuario();
@@ -34,6 +36,20 @@ export class PublicacionesComponent
     });
     // this.authService.autoLogout(120); //cuando reinicio se me reincia el temporizador
   } //listo
+
+
+  abrirModal(pub: Publicacion) {
+    this.publicacionSeleccionada = pub;
+  }
+
+  cerrarModal() {
+    this.publicacionSeleccionada = null;
+  }
+
+
+
+
+
 
   mostrar()
   {

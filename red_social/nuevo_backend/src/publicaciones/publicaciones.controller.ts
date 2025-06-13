@@ -1,5 +1,6 @@
 import {
-  Controller, Get, Post, Body, Param, Delete, Query, UploadedFile, UseInterceptors, Req, UseGuards
+  Controller, Get, Post, Body, Param, Delete, Query, UploadedFile, UseInterceptors, Req, UseGuards,
+  Put
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -73,5 +74,11 @@ export class PublicacionesController
   async eliminar(@Param('id') publicacionId: string)
   {
     return this.publicacionesService.eliminar(publicacionId);
-  }
+  } //listo
+
+  @Put(':id')
+  async actualizarPublicacion(@Param('id') id: string, @Body() body: any)
+  {
+    return this.publicacionesService.actualizar(id, body);
+  } //listo
 }

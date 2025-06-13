@@ -26,6 +26,10 @@ export class PublicacionComponent
   usuarioId = this.authService.usuarioLogueado._id;
   nombreUsuario = this.authService.usuarioLogueado.nombre;
 
+  editando = false;
+  tituloEditado = '';
+  descripcionEditada = '';
+
   ngOnInit()
   {
     this.cargarComentarios();
@@ -79,5 +83,30 @@ export class PublicacionComponent
     this.publicacionesService.eliminarPublicacion(this.publicacion._id).subscribe(() => {
       this.publicacionesService.emitirRecarga();
     });
+  }
+
+  activarEdicion()
+  {
+    this.editando = true;
+    this.tituloEditado = this.publicacion.titulo;
+    this.descripcionEditada = this.publicacion.descripcion;
+  }
+
+  guardarCambios()
+  {
+    
+      this.publicacionesService.actualizarPublicacion(this.publicacion._id, {
+        titulo: this.tituloEditado,
+        descripcion: this.descripcionEditada
+      }).subscribe(actualizada => {
+        this.publicacion.titulo = actualizada.titulo;
+        this.publicacion.descripcion = actualizada.descripcion;
+        this.editando = false;
+      });
+  }
+
+  cancelarEdicion()
+  {
+    this.editando = false;
   }
 }

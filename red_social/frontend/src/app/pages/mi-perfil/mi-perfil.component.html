@@ -1,1 +1,20 @@
-<p>mi-perfil works!</p>
+<p><strong>Nombre:</strong> {{ this.auth.usuarioLogueado.nombre }}</p>
+<p><strong>Apellido:</strong> {{ this.auth.usuarioLogueado.apellido }}</p>
+<p><strong>Correo:</strong> {{ this.auth.usuarioLogueado.correo }}</p>
+<p><strong>Nombre de usuario:</strong> {{ this.auth.usuarioLogueado.nombre_usuario }}</p>
+<p><strong>Descripción:</strong> {{ this.auth.usuarioLogueado.descripcion }}</p>
+<p><strong>Fecha de nacimiento:</strong> {{ this.auth.usuarioLogueado.fecha_nacimiento | date }}</p>
+<p><strong>Tipo:</strong> {{ this.auth.usuarioLogueado.tipo }}</p>
+
+<img [src]="imagenUrl" alt="">
+
+<button routerLink="/publicaciones">Publicaciones</button>
+
+<!--preguntar lo de editar los comentarios (modificar algo)-->
+<!--preguntar si hay q cambiar las rutas (en el front) despues cuando haga el deploy-->
+<!--probar devuelta el deploy-->
+
+<h3>ultimas publicaciones:</h3>
+<div *ngFor="let pub of publicaciones">
+    <app-publicacion [publicacion]="pub"></app-publicacion>
+</div>

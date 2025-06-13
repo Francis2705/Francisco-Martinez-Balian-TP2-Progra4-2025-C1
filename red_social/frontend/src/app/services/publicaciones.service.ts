@@ -17,7 +17,8 @@ export class PublicacionesService
 
   constructor(private http: HttpClient) {}
 
-  emitirRecarga() {
+  emitirRecarga()
+  {
     this._refrescarListado$.next();
   }
 
@@ -43,11 +44,17 @@ export class PublicacionesService
 
   agregarComentario(publicacionId: string, comentario: { texto: string, usuarioId: string, nombreUsuario: string })
   {
+    console.log(`${this.baseUrl}/${publicacionId}/comentarios`);
     return this.http.post(`${this.baseUrl}/${publicacionId}/comentarios`, comentario);
   } //listo
 
   eliminarPublicacion(publicacionId: string)
   {
     return this.http.delete(`${this.baseUrl}/${publicacionId}`);
-  }
+  } //listo
+
+  actualizarPublicacion(publicacionId: string, datos: { titulo: string; descripcion: string })
+  {
+    return this.http.put<Publicacion>(`${this.baseUrl}/${publicacionId}`, datos);
+  } //listo
 }
