@@ -25,9 +25,16 @@ export class AuthService
 
       if (data.ok)
       {
+        const payload = JSON.parse(atob(data.token.split('.')[1]));
+        const expTimestamp = payload.exp * 1000;
+
         localStorage.setItem('token', data.token);
         localStorage.setItem('usuario', JSON.stringify(data.data));
+        localStorage.setItem('expiracion', expTimestamp.toString());
         this.usuarioLogueado = data.data;
+
+        const tiempoRestante = expTimestamp - Date.now();
+        this.autoLogout(tiempoRestante / 1000);
       }
 
       return data;
@@ -42,22 +49,53 @@ export class AuthService
   {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('expiracion');
+    this.usuarioLogueado = null;
     this.router.navigate(['/login']);
   }
 
-  isAuthenticated(): boolean
-  {
-    return !!localStorage.getItem('token');
+  // isAuthenticated(): boolean
+  // {
+  //   return !!localStorage.getItem('token');
+  // }
+  isAuthenticated(): boolean {
+  const token = localStorage.getItem('token');
+  const expiracion = Number(localStorage.getItem('expiracion'));
+
+  if (!token || !expiracion) return false;
+  return Date.now() < expiracion;
+}
+
+  autoLogout(segundos: number): void {
+    setTimeout(() => {
+      this.logout();
+      alert('Tu sesión ha expirado por inactividad.');
+    }, segundos * 1000);
   }
 
-  autoLogout(segundos: number)
-  {
-    setTimeout(() => this.logout(), segundos * 1000);
+  // getUsuario()
+  // {
+  //   return JSON.parse(localStorage.getItem('usuario') || '{}');
+  // }
+  getUsuario(): any {
+    if (!this.usuarioLogueado) {
+      const usuarioString = localStorage.getItem('usuario');
+      if (usuarioString) {
+        this.usuarioLogueado = JSON.parse(usuarioString);
+      }
+    }
+    return this.usuarioLogueado;
   }
 
-  getUsuario()
-  {
-    return JSON.parse(localStorage.getItem('usuario') || '{}');
+  verificarSesionActiva(): void {
+    const expiracion = Number(localStorage.getItem('expiracion'));
+    if (this.isAuthenticated()) {
+      const tiempoRestante = expiracion - Date.now();
+      this.autoLogout(tiempoRestante / 1000);
+      this.getUsuario(); // Recupera usuario si es necesario
+    } else {
+      this.logout();
+    }
   }
 
   async getUsuariosTotales(): Promise<any>

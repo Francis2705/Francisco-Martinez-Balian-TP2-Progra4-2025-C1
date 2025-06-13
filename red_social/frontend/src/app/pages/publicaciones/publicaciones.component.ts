@@ -34,6 +34,9 @@ export class PublicacionesComponent
     this.publicacionesService.refrescarListado$.subscribe(() => {
       this.cargarPublicaciones(); // Se vuelve a llamar cuando llega la señal
     });
+
+    this.authService.verificarSesionActiva();
+
     // this.authService.autoLogout(120); //cuando reinicio se me reincia el temporizador
   } //listo
 

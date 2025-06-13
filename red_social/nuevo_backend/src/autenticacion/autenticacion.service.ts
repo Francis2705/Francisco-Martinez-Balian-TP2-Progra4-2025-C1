@@ -81,9 +81,28 @@ export class AutenticacionService
       return { ok: false, error: 'clave incorrecta' };
     }
 
-    const { clave: _, ...datosUsuario } = usuario.toObject(); //devuelve los datos del usuario sin la clave
-    const token = this.jwtService.sign(datosUsuario); //creo el token
-    return { ok: true, token, data: datosUsuario };
+    // const { clave: _, ...datosUsuario } = usuario.toObject(); //devuelve los datos del usuario sin la clave
+    // const token = this.jwtService.sign(datosUsuario); //creo el token
+    // return { ok: true, token, data: datosUsuario };
+
+    const payload = { sub: usuario._id, correo: usuario.correo };
+    const token = this.jwtService.sign(payload, { expiresIn: '10s' }); // ← IMPORTANTE
+
+    return {
+      ok: true,
+      token,
+      data: {
+        _id: usuario._id,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        correo: usuario.correo,
+        nombre_usuario: usuario.nombre_usuario,
+        fecha_nacimiento: usuario.fecha_nacimiento,
+        descripcion: usuario.descripcion,
+        imagen: usuario.imagen,
+        tipo: usuario.tipo
+      }
+    };
   }
 
   async traerUsuarios()
