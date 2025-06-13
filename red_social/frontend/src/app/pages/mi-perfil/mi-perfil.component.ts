@@ -22,6 +22,10 @@ export class MiPerfilComponent
     this.auth.usuarioLogueado = this.auth.getUsuario();
     this.cargarPublicaciones();
     this.auth.verificarSesionActiva();
+
+    this.publicacionesService.refrescarListado$.subscribe(() => {
+      this.cargarPublicaciones();
+    });
   }
 
   get imagenUrl(): string
