@@ -58,7 +58,7 @@ export class AutenticacionService
       return { ok: false, error: '2024' };
     }
 
-    const nuevoUsuario = new this.autenticacionModel({...createAutenticacionDto, imagen: imagenNombre,});
+    const nuevoUsuario = new this.autenticacionModel({...createAutenticacionDto, imagen: imagenNombre, activo: true});
     nuevoUsuario.clave = await bcrypt.hash(nuevoUsuario.clave, 10);
 
     return nuevoUsuario.save()

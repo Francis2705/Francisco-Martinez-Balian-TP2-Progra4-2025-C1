@@ -19,15 +19,146 @@
 </table>
 
 <h3>Registrar nuevo usuario</h3>
-<form (ngSubmit)="registrarUsuario()">
-  <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" placeholder="Nombre" required />
-  <input [(ngModel)]="nuevoUsuario.correo" name="correo" placeholder="Correo" required />
-  <input [(ngModel)]="nuevoUsuario.clave" name="clave" type="password" required />
-  <select [(ngModel)]="nuevoUsuario.tipo" name="tipo">
-    <option value="usuario">Usuario</option>
-    <option value="admin">Administrador</option>
-  </select>
-  <button type="submit">Registrar</button>
-</form>
+<div class="card p-4 shadow-lg border border-secondary bg-secondary border border-info-subtle text-light"
+        style="min-width: 320px; max-width: 500px; width: 100%; background-color: #1b2838 !important">
+        <h2 class="text-center text-info mb-4">Registro</h2>
+        @if(formulario !== undefined)
+        {
+            <form [formGroup]="formulario">
+                <div class="mb-3"> <!-- Nombre -->
+                    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" />
+                    @if(nombre?.errors !== null && nombre?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(nombre?.hasError("required")) { <p class="mb-1">El nombre es requerido</p> }
+                            @if(nombre?.hasError("minlength")) { <p class="mb-1">Mínimo 3 caracteres</p> }
+                            @if(nombre?.hasError("maxlength")) { <p class="mb-1">Máximo 15 caracteres</p> }
+                        </div>
+                    }
+                </div>
 
+                <div class="mb-3"> <!-- Apellido -->
+                    <input type="text" formControlName="apellido" class="form-control" placeholder="Apellido" />
+                    @if(apellido?.errors !== null && apellido?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(apellido?.hasError("required")) { <p class="mb-1">El apellido es requerido</p> }
+                            @if(apellido?.hasError("minlength")) { <p class="mb-1">Mínimo 3 caracteres</p> }
+                            @if(apellido?.hasError("maxlength")) { <p class="mb-1">Máximo 25 caracteres</p> }
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3"> <!-- Correo -->
+                    <input type="email" formControlName="correo" class="form-control" placeholder="Correo electrónico" />
+                    @if(correo?.errors !== null && correo?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(correo?.hasError("required")) { <p class="mb-1">El correo es requerido</p> }
+                            @if(correo?.hasError("email")) { <p class="mb-1">Formato de correo inválido</p> }
+                            @if(correo?.hasError('maxlength')) { <p class="mb-1">Máximo 50 caracteres</p> }
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3"> <!-- Nombre de usuario-->
+                    <input type="text" formControlName="nombre_usuario" class="form-control" placeholder="Nombre de usuario" />
+                    @if(nombre_usuario?.errors !== null && nombre_usuario?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(nombre_usuario?.hasError("required")) { <p class="mb-1">El usuario es requerido</p> }
+                            @if(nombre_usuario?.hasError("minlength")) { <p class="mb-1">Mínimo 5 caracteres</p> }
+                            @if(nombre_usuario?.hasError("maxlength")) { <p class="mb-1">Máximo 20 caracteres</p> }
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3 position-relative"> <!-- Clave con boton para ocultar -->
+                    <input [type]="mostrarClave ? 'text' : 'password'" formControlName="clave" class="form-control" placeholder="Contraseña" />
+                    <button type="button" (click)="verClave()" class="boton-clave" [ngClass]=
+                        "{ 'con-errores': clave?.errors !== null && clave?.touched }">{{ mostrarClave ? '🙈' : '🙉' }}</button>
+                    @if(clave?.errors !== null && clave?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(clave?.hasError('required')) { <p class="error-clave">La clave es requerida</p> }
+                            @if(clave?.hasError('minlength')) { <p class="error-clave">Mínimo 8 caracteres</p> }
+                            @if(clave?.hasError('maxlength')) { <p class="error-clave">Máximo 20 caracteres</p> }
+                            @if(clave?.hasError('pattern')){ <p class="error-clave">La clave debe contener al menos una mayúscula y un número</p> }
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3 position-relative"> <!-- Repetir clave -->
+                    <input [type]="mostrarClave ? 'text' : 'password'" formControlName="repetir_clave" class="form-control"
+                        placeholder="Repetir contraseña" />
+                    <button type="button" (click)="verClave()" class="boton-clave" [ngClass]=
+                        "{ 'con-errores-2': repetir_clave?.errors !== null && repetir_clave?.touched }">{{ mostrarClave ? '🙈' : '🙉' }}</button>
+                    @if(repetir_clave?.errors !== null && repetir_clave?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(repetir_clave?.hasError('required')) { <p class="mb-1">Debe repetir la contraseña</p> }
+                            @if(repetir_clave?.hasError('noCoincide')){<p class="mb-1">Las contraseñas no coinciden</p>}
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3"> <!-- Fecha de nacimiento -->
+                    <input type="date" formControlName="fecha_nacimiento" class="form-control" />
+                    @if(fecha_nacimiento?.errors !== null && fecha_nacimiento?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(fecha_nacimiento?.hasError('required')) { <p class="mb-1">La fecha es obligatoria</p> }
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3"> <!-- Descripción -->
+                    <input type='text' formControlName="descripcion" class="form-control" placeholder="Descripción breve">
+                    @if(descripcion?.errors !== null && descripcion?.touched)
+                    {
+                        <div class="text-danger small mt-1">
+                            @if(descripcion?.hasError('required')) { <p class="mb-1">La descripción es obligatoria</p> }
+                            @if(descripcion?.hasError('maxlength')) { <p class="mb-1">Máximo 250 caracteres</p> }
+                        </div>
+                    }
+                </div>
+
+                <div class="mb-3"> <!-- Imagen -->
+                    <input type="file" (change)="seleccionarImagen($event)" class="form-control"/>
+                    <div *ngIf="mensajeError" class="text-danger">
+                        <p class="mb-1">Por favor subí un archivo con extensión .jpg .jpeg o .png</p>
+                    </div>
+                </div>
+
+                <div class="mb-3"> <!-- Tipo -->
+                  <select formControlName="tipo" class="form-control">
+                    <option value="">Seleccioná un tipo</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="administrador">Administrador</option>
+                  </select>
+                  @if(tipo?.errors !== null && tipo?.touched)
+                  {
+                    <div class="text-danger small mt-1">
+                      @if(tipo?.hasError('required')) { <p class="mb-1">El tipo es obligatorio</p> }
+                    </div>
+                  }
+                </div>
+
+                <button (click)="guardarDatos()" [disabled]="!formulario.valid || mensajeError" class="btn btn-info w-100">Guardar</button>
+            </form>
+        }
+
+        @if(registro() === 'registro exitoso')
+        {
+            <p class="text-success text-center mt-3 small">¡Registro exitoso!</p>
+        }
+        @else if(registro() === 'mail repetido')
+        {
+            <p class="text-danger text-center mt-3 small">¡Error, correo ya registrado!</p>
+        }
+        @else if(registro() === 'Error, año de nacimiento inválido')
+        {
+            <p class="text-danger text-center mt-3 small">El año de nacimiento debe estar entre 1920 y 2024</p>
+        }
+    </div>
 }

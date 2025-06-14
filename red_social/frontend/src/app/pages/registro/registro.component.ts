@@ -126,7 +126,8 @@ export class RegistroComponent implements OnInit
   seleccionarImagen(event: any)
   {
     const file = event.target.files[0];
-    if (file && !(file.name.toLowerCase().endsWith('.jpg') || file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png')))
+    if (file && !(file.name.toLowerCase().endsWith('.jpg') || file.name.toLowerCase().endsWith('.jpeg') ||
+      file.name.toLowerCase().endsWith('.png')))
     {
       this.mensajeError = true;
       return;
