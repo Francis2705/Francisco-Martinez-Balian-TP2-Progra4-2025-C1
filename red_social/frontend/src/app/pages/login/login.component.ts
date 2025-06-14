@@ -56,6 +56,10 @@ export class LoginComponent implements OnInit
         {
           this.mensajeLogin.set('Error, clave incorrecta.');
         }
+        else if (data.error === 'usuario baneado')
+        {
+          this.mensajeLogin.set('Error, usuario baneado.');
+        }
         else if (data.error === 'fallo conexion')
         {
           this.mensajeLogin.set('Error al conectar con el servidor.');
@@ -63,7 +67,7 @@ export class LoginComponent implements OnInit
         this.cdr.detectChanges();
       }
     }
-  }
+  } //listo
 
   loginRapido(usuario: string)
   {

@@ -1,0 +1,33 @@
+@if(this.authService.usuarioLogueado.tipo !== 'administrador')
+{
+    <button routerLink="/publicaciones">No tiene permisos de administrador</button>
+}
+@else
+{
+    <h2>Usuarios</h2>
+<table>
+  <tr *ngFor="let u of usuarios">
+    <td>{{ u.nombre }}</td>
+    <td>{{ u.correo }}</td>
+    <td>{{ u.tipo }}</td>
+    <td>{{ u.activo ? 'Activo' : 'Inactivo' }}</td>
+    <td>
+      <button *ngIf="u.activo" (click)="deshabilitarUsuario(u._id)">Deshabilitar</button>
+      <button *ngIf="!u.activo" (click)="habilitarUsuario(u._id)">Habilitar</button>
+    </td>
+  </tr>
+</table>
+
+<h3>Registrar nuevo usuario</h3>
+<form (ngSubmit)="registrarUsuario()">
+  <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" placeholder="Nombre" required />
+  <input [(ngModel)]="nuevoUsuario.correo" name="correo" placeholder="Correo" required />
+  <input [(ngModel)]="nuevoUsuario.clave" name="clave" type="password" required />
+  <select [(ngModel)]="nuevoUsuario.tipo" name="tipo">
+    <option value="usuario">Usuario</option>
+    <option value="admin">Administrador</option>
+  </select>
+  <button type="submit">Registrar</button>
+</form>
+
+}

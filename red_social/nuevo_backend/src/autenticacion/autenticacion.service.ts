@@ -85,6 +85,9 @@ export class AutenticacionService
     const claveValida = await bcrypt.compare(clave, usuario.clave);
     if (!claveValida) { return { ok: false, error: 'clave incorrecta' }; }
 
+    const activo = usuario.activo;
+    if (!activo) { return { ok: false, error: 'usuario baneado'}; }
+
     const payload = { 
       sub: usuario._id,
       apellido: usuario.apellido,

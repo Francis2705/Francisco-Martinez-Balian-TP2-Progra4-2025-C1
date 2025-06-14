@@ -23,6 +23,8 @@ export class Autenticacion
     imagen?: string; // URL de la imagen, se maneja aparte
     @Prop({required: true})
     tipo: string;
+    @Prop()
+    activo: boolean;
 }
 
 export const schema = SchemaFactory.createForClass(Autenticacion);

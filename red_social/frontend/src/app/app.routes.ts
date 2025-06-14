@@ -13,5 +13,7 @@ export const routes: Routes = [
         .then((modulo) => modulo.MiPerfilComponent), canActivate: [AuthGuard]},
     {path: "form-publicacion", loadComponent: () => import('./pages/form-publicacion/form-publicacion.component')
         .then((modulo) => modulo.FormPublicacionComponent), canActivate: [AuthGuard]},
+    {path: "dashboard-usuarios", loadComponent: () => import('./pages/dashboard-usuarios/dashboard-usuarios.component')
+        .then((modulo) => modulo.DashboardUsuariosComponent), canActivate: [AuthGuard]},
     {path: "", redirectTo: "login", pathMatch: "full"}
 ];

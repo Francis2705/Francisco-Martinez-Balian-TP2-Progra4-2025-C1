@@ -5,6 +5,14 @@
 <button routerLink="/mi-perfil">Mi perfil</button>
 <p>hola {{this.authService.usuarioLogueado.nombre}}</p>
 
+<br>
+<br>
+
+@if(this.authService.usuarioLogueado.tipo === 'administrador')
+{
+    <button routerLink="/dashboard-usuarios">Administrar usuarios</button>
+}
+
 <button routerLink="/form-publicacion">crear publicacion</button>
 <br><br>
 <button (click)="cerrarSesion()">Cerrar sesion</button>

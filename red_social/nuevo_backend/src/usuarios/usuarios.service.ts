@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { Model } from 'mongoose';
+import { Usuario, UsuarioDocument } from './entities/usuario.entity';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
-export class UsuariosService {
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+export class UsuariosService
+{
+  constructor(@InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument>) {}
+
+  async listarTodos()
+  {
+    return this.usuarioModel.find();
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async crearUsuario(datos: any)
+  {
+    const nuevo = new this.usuarioModel({
+      nombre: datos.nombre,
+      correo: datos.correo,
+      clave: datos.clave,
+      tipo: datos.tipo || 'usuario',
+      activo: true,
+    });
+    return nuevo.save();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async deshabilitarUsuario(id: string)
+  {
+    return this.usuarioModel.findByIdAndUpdate(id, { activo: false });
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async habilitarUsuario(id: string)
+  {
+    return this.usuarioModel.findByIdAndUpdate(id, { activo: true });
   }
 }

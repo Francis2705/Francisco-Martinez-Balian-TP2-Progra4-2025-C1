@@ -10,9 +10,10 @@ export class Usuario
     tipo: string;
     imagen?: string;
     id?: number;
+    activo?: boolean;
 
     constructor(nombre: string, apellido: string, correo: string, nombre_usuario: string,
-        clave: string, fecha_nacimiento: Date, descripcion: string, tipo: string, imagen?: string, id?: number)
+        clave: string, fecha_nacimiento: Date, descripcion: string, tipo: string, imagen?: string, id?: number, activo?: boolean)
     {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -24,5 +25,6 @@ export class Usuario
         this.tipo = tipo;
         this.imagen = imagen;
         this.id = id;
+        this.activo = activo;
     }
 }
