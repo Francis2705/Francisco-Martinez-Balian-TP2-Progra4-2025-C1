@@ -56,6 +56,12 @@ export class AutenticacionController
     return this.autenticacionService.traerUsuarios();
   } //listo
 
+  @Get('usuarios/nombres')
+  async traerNombresUsuarios()
+  {
+    return this.autenticacionService.traerNombresUsuarios();
+  }
+
   @UseGuards(AuthGuard('jwt'))
   @Post('refresh')
   refreshToken(@Request() req)

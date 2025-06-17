@@ -15,5 +15,7 @@ export const routes: Routes = [
         .then((modulo) => modulo.FormPublicacionComponent), canActivate: [AuthGuard]},
     {path: "dashboard-usuarios", loadComponent: () => import('./pages/dashboard-usuarios/dashboard-usuarios.component')
         .then((modulo) => modulo.DashboardUsuariosComponent), canActivate: [AuthGuard]},
+    {path: "dashboard-estadisticas", loadComponent: () => import('./pages/dashboard-estadisticas/dashboard-estadisticas.component')
+        .then((modulo) => modulo.DashboardEstadisticasComponent), canActivate: [AuthGuard]},
     {path: "", redirectTo: "login", pathMatch: "full"}
 ];

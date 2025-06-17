@@ -25,7 +25,7 @@ export class UsuariosService
   crearUsuario(datos: any)
   {
     return this.http.post(this.baseUrl, datos, this.getHeaders());
-  }
+  } //listo
 
   deshabilitar(id: string)
   {

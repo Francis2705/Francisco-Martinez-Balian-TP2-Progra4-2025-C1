@@ -8,6 +8,7 @@ export class AuthService
 {
   usuarioLogueado: any = null;
   usuariosTotales: any[] = [];
+  nombresUsuarios: any[] = [];
 
   private timeoutLogout: any;
   private timeoutModal: any;
@@ -168,4 +169,13 @@ export class AuthService
     const data = await response.json();
     return data.listaUsuarios;
   } //listo
+
+  async getNombreUsuarios(): Promise<any>
+  {
+    const response = await fetch('http://localhost:3000/autenticacion/usuarios/nombres');
+    const data = await response.json();
+    console.log(data);
+
+    return data.listaNombreUsuarios;
+  }
 }

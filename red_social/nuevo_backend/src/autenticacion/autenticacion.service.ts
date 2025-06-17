@@ -77,6 +77,17 @@ export class AutenticacionService
     return data;
   } //listo
 
+  async traerNombresUsuarios()
+  {
+    const usuarios = await this.autenticacionModel.find({}, { nombre: 1, _id: 0 });
+    const data = {
+      ok: true,
+      listaNombreUsuarios: usuarios
+    };
+
+    return data;
+  }
+
   async login(correo: string, clave: string)
   {
     const usuario = await this.autenticacionModel.findOne({ correo });

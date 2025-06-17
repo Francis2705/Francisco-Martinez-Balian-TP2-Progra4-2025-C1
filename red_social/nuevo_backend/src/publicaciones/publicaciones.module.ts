@@ -10,6 +10,7 @@ import { Publicacione, PublicacionSchema } from './entities/publicacione.entity'
     MongooseModule.forFeature([{ name: Publicacione.name, schema: PublicacionSchema }]),
     MulterModule.register({ dest: './uploads/publicaciones' }),
   ],
+  exports: [MongooseModule],
   controllers: [PublicacionesController],
   providers: [PublicacionesService],
 })

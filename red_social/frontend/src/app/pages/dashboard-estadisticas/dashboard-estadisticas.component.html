@@ -1,0 +1,49 @@
+@if(this.authService.usuarioLogueado.tipo !== 'administrador')
+{
+    <button routerLink="/publicaciones">No tiene permisos de administrador</button>
+}
+@else
+{
+  <div class="container">
+    <h2>Estadísticas</h2>
+
+    <!--publicaciones por usuario-->
+    <div class="mb-3">
+      <label>Desde:</label>
+      <input type="date" [(ngModel)]="desde" class="form-control">
+      <label>Hasta:</label>
+      <input type="date" [(ngModel)]="hasta" class="form-control">
+      <button (click)="cargarPublicacionesPorUsuario()">Cargar publicaciones por usuario</button>
+    </div>
+    <div *ngIf="datosPublicaciones.length > 0">
+      <h4>Publicaciones por usuario</h4>
+      <canvas baseChart
+        [data]="chartDataPublicaciones"
+        [type]="'bar'">
+      </canvas>
+    </div>
+
+    <!--comentarios por usuario-->
+    <div>
+      <button (click)="cargarComentariosPorUsuario()">Cargar comentarios por usuario</button>
+      <h4>Total de comentarios</h4>
+      <p>{{ datosComentariosTotales }} comentarios entre {{ desde }} y {{ hasta }}</p>
+    </div>
+    <div *ngIf="chartDataComentarios.labels!.length > 0">
+    <h4>Comentarios por usuario</h4>
+    <canvas baseChart
+      [data]="chartDataComentarios"
+      [type]="'bar'">
+    </canvas>
+  </div>
+
+  <!--tengo q traer una publicacion con sus comentarios, y graficar cuantos comentarios hay de cada usuario en ese lapso de tiempo-->
+    <!-- <div *ngIf="datosComentariosPorPublicacion.length > 0">
+      <h4>Comentarios por publicación</h4>
+      <canvas baseChart
+        [data]="chartDataComentarios"
+        [type]="'bar'">
+      </canvas>
+    </div> -->
+  </div>
+}
