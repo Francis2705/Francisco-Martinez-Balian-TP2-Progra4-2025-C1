@@ -5,7 +5,8 @@ import { TiposGuard } from 'src/usuarios/tipos.guard';
 import { Tipos } from 'src/usuarios/tipos.decorator';
 
 @Controller('estadisticas')
-export class EstadisticasController {
+export class EstadisticasController
+{
   constructor(private readonly estadisticasService: EstadisticasService) {}
 
   @Get('publicaciones-por-usuario')

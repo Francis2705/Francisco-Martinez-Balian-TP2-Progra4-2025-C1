@@ -1,10 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors,
-  UploadedFile, BadRequestException, ValidationPipe, 
-  UseGuards,
-  Request} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseInterceptors, UploadedFile, BadRequestException, ValidationPipe, UseGuards, Request } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service';
 import { CreateAutenticacionDto } from './dto/create-autenticacion.dto';
-import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -60,7 +56,7 @@ export class AutenticacionController
   async traerNombresUsuarios()
   {
     return this.autenticacionService.traerNombresUsuarios();
-  }
+  } //listo
 
   @UseGuards(AuthGuard('jwt'))
   @Post('refresh')
@@ -74,5 +70,5 @@ export class AutenticacionController
       token: newToken,
       data: user,
     };
-  }
+  } //listo
 }

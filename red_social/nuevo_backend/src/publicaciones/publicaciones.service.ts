@@ -1,8 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model} from 'mongoose';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
-import { UpdatePublicacioneDto } from './dto/update-publicacione.dto';
 import { Publicacione } from './entities/publicacione.entity';
 import * as mongoose from 'mongoose';
 import { CreateComentarioDto } from './dto/create-comentario.dto';

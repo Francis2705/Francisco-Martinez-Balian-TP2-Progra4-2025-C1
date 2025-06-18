@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateAutenticacionDto } from './dto/create-autenticacion.dto';
-import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Autenticacion, AutenticacionDocument } from './entities/autenticacion.entity';
+import { Autenticacion } from './entities/autenticacion.entity';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -86,7 +85,7 @@ export class AutenticacionService
     };
 
     return data;
-  }
+  } //listo
 
   async login(correo: string, clave: string)
   {
@@ -145,5 +144,5 @@ export class AutenticacionService
     };
 
     return this.jwtService.sign(payload, { expiresIn: '60s' });
-  }
+  } //listo
 }

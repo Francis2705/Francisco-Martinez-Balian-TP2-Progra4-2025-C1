@@ -1,14 +1,8 @@
-import {
-  Controller, Get, Post, Body, Param, Delete, Query, UploadedFile, UseInterceptors, Req, UseGuards,
-  Put
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, UploadedFile, UseInterceptors, Put } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { PublicacionesService } from './publicaciones.service';
-import { CreatePublicacioneDto } from './dto/create-publicacione.dto';
-import { UpdatePublicacioneDto } from './dto/update-publicacione.dto';
-import { Request } from 'express';
 import { CreateComentarioDto } from './dto/create-comentario.dto';
 
 @Controller('publicaciones')

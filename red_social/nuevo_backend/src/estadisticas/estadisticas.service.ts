@@ -14,18 +14,6 @@ export class EstadisticasService
         return this.publicacionModel.find(filtro);
     }
 
-    // async cantidadComentariosTotales(desde: Date, hasta: Date)
-    // {
-    //     return this.publicacionModel.aggregate([
-    //     {
-    //         $match: {createdAt: { $gte: desde, $lte: hasta },},
-    //     },
-    //     {
-    //         $project: {_id: 0,comentarios: 1},
-    //     }
-    //     ]);
-    // }
-
     async devolverPublicacion(_id: string)
     {
         return this.publicacionModel.findById(_id);
