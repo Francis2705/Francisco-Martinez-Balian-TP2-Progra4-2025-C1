@@ -9,8 +9,8 @@ export class EstadisticasController {
   constructor(private readonly estadisticasService: EstadisticasService) {}
 
   @Get('publicaciones-por-usuario')
-  // @UseGuards(AuthGuard('jwt'), TiposGuard)
-  // @Tipos('administrador')
+  @UseGuards(AuthGuard('jwt'), TiposGuard)
+  @Tipos('administrador')
   async publicacionesPorUsuario(@Query('desde') desde: string, @Query('hasta') hasta: string)
   {
     const desdeFecha = new Date(desde);
@@ -18,19 +18,19 @@ export class EstadisticasController {
     return this.estadisticasService.publicacionesPorUsuario(desdeFecha, hastaFecha);
   }
 
-  @Get('comentarios-totales')
-  // @UseGuards(AuthGuard('jwt'), TiposGuard)
-  // @Tipos('administrador')
-  async comentariosTotales(@Query('desde') desde: string, @Query('hasta') hasta: string)
+  @Get('publicacion')
+  @UseGuards(AuthGuard('jwt'), TiposGuard)
+  @Tipos('administrador')
+  async devolverPublicacion(@Query('_id') _id: string)
   {
-    return this.estadisticasService.cantidadComentariosTotales(new Date(desde), new Date(hasta));
+    return this.estadisticasService.devolverPublicacion(_id);
   }
 
-  @Get('comentarios-por-publicacion')
-  // @UseGuards(AuthGuard('jwt'), TiposGuard)
-  // @Tipos('administrador')
-  async comentariosPorPublicacion(@Query('desde') desde: string, @Query('hasta') hasta: string)
+  @Get('titulos-ids')
+  @UseGuards(AuthGuard('jwt'), TiposGuard)
+  @Tipos('administrador')
+  async devolverTitulosIds()
   {
-    return this.estadisticasService.comentariosPorPublicacion(new Date(desde), new Date(hasta));
+    return this.estadisticasService.devolverTitulosYIds();
   }
 }

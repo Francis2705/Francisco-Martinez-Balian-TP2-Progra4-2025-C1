@@ -30,20 +30,30 @@
       <p>{{ datosComentariosTotales }} comentarios entre {{ desde }} y {{ hasta }}</p>
     </div>
     <div *ngIf="chartDataComentarios.labels!.length > 0">
-    <h4>Comentarios por usuario</h4>
-    <canvas baseChart
-      [data]="chartDataComentarios"
-      [type]="'bar'">
-    </canvas>
-  </div>
-
-  <!--tengo q traer una publicacion con sus comentarios, y graficar cuantos comentarios hay de cada usuario en ese lapso de tiempo-->
-    <!-- <div *ngIf="datosComentariosPorPublicacion.length > 0">
-      <h4>Comentarios por publicación</h4>
+      <h4>Comentarios por usuario</h4>
       <canvas baseChart
         [data]="chartDataComentarios"
         [type]="'bar'">
       </canvas>
-    </div> -->
+    </div>
+
+    <div class="mb-3">
+      <label for="publicacionSeleccionada">Seleccionar publicación</label>
+      <select id="publicacionSeleccionada" class="form-control" [(ngModel)]="publicacionSeleccionadaId">
+        <option *ngFor="let pub of nombresIdsPublicaciones" [value]="pub._id">
+          {{ pub.titulo }}
+        </option>
+      </select>
+      <br>
+      <button (click)="cargarPublicacion()">Mostrar comentarios por publicacion</button>
+    </div>
+
+    <div *ngIf="datosComentariosPorPublicacion.length > 0">
+      <h4>Comentarios por publicación</h4>
+      <canvas baseChart
+        [data]="chartDataComentariosPorPublicacion"
+        [type]="'bar'">
+      </canvas>
+    </div>
   </div>
 }

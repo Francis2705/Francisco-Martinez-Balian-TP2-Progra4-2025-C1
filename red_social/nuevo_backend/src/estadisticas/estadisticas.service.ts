@@ -14,32 +14,25 @@ export class EstadisticasService
         return this.publicacionModel.find(filtro);
     }
 
-    async cantidadComentariosTotales(desde: Date, hasta: Date)
+    // async cantidadComentariosTotales(desde: Date, hasta: Date)
+    // {
+    //     return this.publicacionModel.aggregate([
+    //     {
+    //         $match: {createdAt: { $gte: desde, $lte: hasta },},
+    //     },
+    //     {
+    //         $project: {_id: 0,comentarios: 1},
+    //     }
+    //     ]);
+    // }
+
+    async devolverPublicacion(_id: string)
     {
-        return this.publicacionModel.aggregate([
-        {
-            $match: {createdAt: { $gte: desde, $lte: hasta },},
-        },
-        {
-            $project: {_id: 0,comentarios: 1},
-        }
-        ]);
+        return this.publicacionModel.findById(_id);
     }
 
-    async comentariosPorPublicacion(desde: Date, hasta: Date)
+    async devolverTitulosYIds()
     {
-        return this.publicacionModel.aggregate([
-            {
-                $match: {
-                    createdAt: { $gte: desde, $lte: hasta },
-                },
-            },
-            {
-                $project: {
-                    titulo: 1,
-                    cantidadComentarios: { $size: '$comentarios' },
-                },
-            },
-        ]);
+        return this.publicacionModel.find({}, { titulo: 1 });
     }
 }
