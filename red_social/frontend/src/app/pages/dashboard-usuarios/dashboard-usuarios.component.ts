@@ -18,8 +18,6 @@ export class DashboardUsuariosComponent
   usuariosService = inject(UsuariosService);
   usuarios: any[] = [];
   nuevoUsuario = { nombre: '', correo: '', clave: '', tipo: 'usuario' };
-
-
   usuario?: Usuario;
   formulario?: FormGroup;
   registro = signal<any | null>(null);
@@ -69,20 +67,12 @@ export class DashboardUsuariosComponent
         }
       }
     });
-  }
+  } //listo
 
   cargarUsuarios()
   {
     this.usuariosService.listarUsuarios().subscribe(data => this.usuarios = data);
   } //listo
-
-  // registrarUsuario()
-  // {
-  //   this.usuariosService.crearUsuario(this.nuevoUsuario).subscribe(() => {
-  //     this.nuevoUsuario = { nombre: '', correo: '', clave: '', tipo: 'usuario' };
-  //     this.cargarUsuarios();
-  //   });
-  // }
 
   deshabilitarUsuario(id: string)
   {
@@ -93,8 +83,6 @@ export class DashboardUsuariosComponent
   {
     this.usuariosService.habilitar(id).subscribe(() => this.cargarUsuarios());
   } //listo
-
-
 
   async guardarDatos()
   {
@@ -130,9 +118,6 @@ export class DashboardUsuariosComponent
           this.registro.set('registro exitoso');
           this.registro_usuario = data.data;
           this.nombreImagen = `http://localhost:3000/uploads/${data.data.imagen}`;
-
-          // const dataLogin = await this.authService.login(this.correo?.value, this.clave?.value);
-          // this.router.navigate(['/publicaciones']);
         }
         else
         {
@@ -157,7 +142,7 @@ export class DashboardUsuariosComponent
         this.errorBackend = 'Error al conectar con el servidor.';
       }
     }
-  }
+  } //listo
 
   seleccionarImagen(event: any)
   {
@@ -173,12 +158,12 @@ export class DashboardUsuariosComponent
       this.formulario?.get('imagen')?.setValue(file);
       this.mensajeError = false;
     }
-  }
+  } //listo
 
   verClave()
   {
     this.mostrarClave = !this.mostrarClave;
-  }
+  } //listo
 
   get correo() {return this.formulario?.get('correo');}
   get nombre() {return this.formulario?.get('nombre');}

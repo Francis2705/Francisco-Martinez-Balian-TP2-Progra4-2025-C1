@@ -1,13 +1,11 @@
 @if(this.authService.usuarioLogueado.tipo !== 'administrador')
 {
-    <button routerLink="/publicaciones">No tiene permisos de administrador</button>
+  <button routerLink="/publicaciones">No tiene permisos de administrador</button>
 }
 @else
 {
   <div class="container">
     <h2>Estadísticas</h2>
-
-    <!--publicaciones por usuario-->
     <div class="mb-3">
       <label>Desde:</label>
       <input type="date" [(ngModel)]="desde" class="form-control">
@@ -17,13 +15,9 @@
     </div>
     <div *ngIf="datosPublicaciones.length > 0">
       <h4>Publicaciones por usuario</h4>
-      <canvas baseChart
-        [data]="chartDataPublicaciones"
-        [type]="'bar'">
-      </canvas>
+      <canvas baseChart [data]="chartDataPublicaciones" [type]="'bar'"></canvas>
     </div>
 
-    <!--comentarios por usuario-->
     <div>
       <button (click)="cargarComentariosPorUsuario()">Cargar comentarios por usuario</button>
       <h4>Total de comentarios</h4>
@@ -31,18 +25,13 @@
     </div>
     <div *ngIf="chartDataComentarios.labels!.length > 0">
       <h4>Comentarios por usuario</h4>
-      <canvas baseChart
-        [data]="chartDataComentarios"
-        [type]="'bar'">
-      </canvas>
+      <canvas baseChart [data]="chartDataComentarios" [type]="'bar'"></canvas>
     </div>
 
     <div class="mb-3">
       <label for="publicacionSeleccionada">Seleccionar publicación</label>
       <select id="publicacionSeleccionada" class="form-control" [(ngModel)]="publicacionSeleccionadaId">
-        <option *ngFor="let pub of nombresIdsPublicaciones" [value]="pub._id">
-          {{ pub.titulo }}
-        </option>
+        <option *ngFor="let pub of nombresIdsPublicaciones" [value]="pub._id">{{ pub.titulo }}</option>
       </select>
       <br>
       <button (click)="cargarPublicacion()">Mostrar comentarios por publicacion</button>
@@ -50,10 +39,7 @@
 
     <div *ngIf="datosComentariosPorPublicacion.length > 0">
       <h4>Comentarios por publicación</h4>
-      <canvas baseChart
-        [data]="chartDataComentariosPorPublicacion"
-        [type]="'bar'">
-      </canvas>
+      <canvas baseChart [data]="chartDataComentariosPorPublicacion" [type]="'bar'"></canvas>
     </div>
   </div>
 }
