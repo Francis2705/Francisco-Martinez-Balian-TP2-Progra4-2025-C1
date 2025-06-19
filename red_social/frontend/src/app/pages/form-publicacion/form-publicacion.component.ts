@@ -26,12 +26,12 @@ export class FormPublicacionComponent
       descripcion: ['', Validators.required],
       imagen: [null]
     });
-  }
+  } //listo
 
   onFileChange(event: any)
   {
     this.imagenSeleccionada = event.target.files[0];
-  }
+  } //listo
 
   async enviar()
   {
@@ -66,5 +66,5 @@ export class FormPublicacionComponent
     {
       console.log('error:', error)
     }
-  }
+  } //listo
 }
