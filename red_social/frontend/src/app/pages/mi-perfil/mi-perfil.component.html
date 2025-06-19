@@ -10,9 +10,6 @@
 
 <button routerLink="/publicaciones">Publicaciones</button>
 
-<!--preguntar si hay q cambiar las rutas (en el front) despues cuando haga el deploy-->
-<!--probar devuelta el deploy-->
-
 <h3>ultimas publicaciones:</h3>
 <div *ngFor="let pub of publicaciones">
     <app-publicacion [publicacion]="pub"></app-publicacion>

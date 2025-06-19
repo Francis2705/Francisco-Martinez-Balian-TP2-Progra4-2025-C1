@@ -26,12 +26,12 @@ export class MiPerfilComponent
     this.publicacionesService.refrescarListado$.subscribe(() => {
       this.cargarPublicaciones();
     });
-  }
+  } //listo
 
   get imagenUrl(): string
   {
     return `http://localhost:3000/uploads/${this.auth.usuarioLogueado.imagen}`;
-  }
+  } //listo
 
   cargarPublicaciones()
   {
@@ -40,5 +40,5 @@ export class MiPerfilComponent
         console.log('Publicaciones recibidas:', data);
         this.publicaciones = data;
       });
-  }
+  } //listo
 }
