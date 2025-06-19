@@ -20,7 +20,7 @@ export class PublicacionesService
   emitirRecarga()
   {
     this._refrescarListado$.next();
-  }
+  } //listo
 
   darMeGusta(idPublicacion: string, idUsuario: string)
   {

@@ -100,7 +100,7 @@ export class AuthService
     {
       this.logout();
     }
-  }
+  } //listo
 
   logout()
   {
@@ -120,7 +120,7 @@ export class AuthService
 
     if (!token || !expiracion) return false;
     return Date.now() < expiracion;
-}
+  } //listo
 
   autoLogout(segundos: number): void
   {
@@ -129,7 +129,7 @@ export class AuthService
       this.logout();
       alert('Tu sesión ha expirado por inactividad.');
     }, segundos * 1000);
-  }
+  } //listo
 
   getUsuario(): any
   {
@@ -142,7 +142,7 @@ export class AuthService
       }
     }
     return this.usuarioLogueado;
-  }
+  } //listo
 
   verificarSesionActiva(): void
   {
@@ -161,7 +161,7 @@ export class AuthService
     {
       this.logout();
     }
-  }
+  } //listo
 
   async getUsuariosTotales(): Promise<any>
   {
@@ -177,5 +177,5 @@ export class AuthService
     console.log(data);
 
     return data.listaNombreUsuarios;
-  }
+  } //listo
 }
