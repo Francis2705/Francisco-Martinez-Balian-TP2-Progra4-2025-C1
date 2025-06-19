@@ -58,7 +58,7 @@ export class RegistroComponent implements OnInit
         }
       }
     });
-  }
+  } //listo
 
   async guardarDatos()
   {
@@ -94,8 +94,7 @@ export class RegistroComponent implements OnInit
           this.registro.set('registro exitoso');
           this.registro_usuario = data.data;
           this.nombreImagen = `http://localhost:3000/uploads/${data.data.imagen}`;
-
-          const dataLogin = await this.authService.login(this.correo?.value, this.clave?.value);
+          await this.authService.login(this.correo?.value, this.clave?.value);
           this.router.navigate(['/publicaciones']);
         }
         else
@@ -121,7 +120,7 @@ export class RegistroComponent implements OnInit
         this.errorBackend = 'Error al conectar con el servidor.';
       }
     }
-  }
+  } //listo
 
   seleccionarImagen(event: any)
   {
@@ -137,12 +136,12 @@ export class RegistroComponent implements OnInit
       this.formulario?.get('imagen')?.setValue(file);
       this.mensajeError = false;
     }
-  }
+  } //listo
 
   verClave()
   {
     this.mostrarClave = !this.mostrarClave;
-  }
+  } //listo
 
   get correo() {return this.formulario?.get('correo');}
   get nombre() {return this.formulario?.get('nombre');}

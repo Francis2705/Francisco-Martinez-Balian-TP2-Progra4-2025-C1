@@ -31,7 +31,7 @@ export class AuthService
     }
 
     return data;
-  }
+  } //listo
 
   setSession(token: string, usuario: any): void
   {
@@ -49,7 +49,7 @@ export class AuthService
 
     this.autoLogout(tiempoRestante / 1000);
     this.programarRenovacionToken(tiempoRestante / 1000);
-  }
+  } //listo
 
   programarRenovacionToken(segundos: number): void
   {
@@ -70,7 +70,7 @@ export class AuthService
         }
       }, tiempoAntes * 1000);
     }
-  }
+  } //listo
 
   async renovarToken(): Promise<void>
   {

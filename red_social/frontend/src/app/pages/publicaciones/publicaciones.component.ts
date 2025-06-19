@@ -3,10 +3,9 @@ import { RouterLink} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Publicacion } from '../publicacion';
 import { PublicacionesService } from '../../services/publicaciones.service';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { PublicacionComponent } from '../publicacion/publicacion.component';
-import { AsyncAction } from 'rxjs/internal/scheduler/AsyncAction';
 
 @Component({
   selector: 'app-publicaciones',
@@ -32,27 +31,20 @@ export class PublicacionesComponent
     this.authService.usuarioLogueado = this.authService.getUsuario();
     this.cargarPublicaciones();
     this.publicacionesService.refrescarListado$.subscribe(() => {
-      this.cargarPublicaciones(); // Se vuelve a llamar cuando llega la señal
+      this.cargarPublicaciones(); //se vuelve a llamar cuando llega la señal
     });
-
     this.authService.verificarSesionActiva();
-
-    // this.authService.autoLogout(120); //cuando reinicio se me reincia el temporizador
   } //listo
 
-
-  abrirModal(pub: Publicacion) {
+  abrirModal(pub: Publicacion)
+  {
     this.publicacionSeleccionada = pub;
-  }
+  } //listo
 
-  cerrarModal() {
+  cerrarModal()
+  {
     this.publicacionSeleccionada = null;
-  }
-
-
-
-
-
+  } //listo
 
   mostrar()
   {
