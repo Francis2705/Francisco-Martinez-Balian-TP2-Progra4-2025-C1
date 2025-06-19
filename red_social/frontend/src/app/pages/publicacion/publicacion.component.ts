@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, Input, inject, EventEmitter, Output} from '@angular/core';
+import { Component, Input, inject} from '@angular/core';
 import { Publicacion } from '../publicacion';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { AuthService } from '../../services/auth.service';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
@@ -36,7 +36,7 @@ export class PublicacionComponent
     this.usuarioId = this.authService.usuarioLogueado._id;
     this.nombreUsuario = this.authService.usuarioLogueado.nombre;
     this.cargarComentarios();
-  }
+  } //listo
 
   likear()
   {
@@ -45,13 +45,13 @@ export class PublicacionComponent
     console.log(this.publicacion._id, this.authService.usuarioLogueado._id);
     this.publicacionesService.darMeGusta(this.publicacion._id, this.authService.usuarioLogueado._id)
       .subscribe(actualizada => {this.publicacion.meGustas = actualizada.meGustas;});
-  }
+  } //listo
 
   deslikear()
   {
     this.publicacionesService.quitarMeGusta(this.publicacion._id, this.authService.usuarioLogueado._id)
       .subscribe(actualizada => {this.publicacion.meGustas = actualizada.meGustas;});
-  }
+  } //listo
 
   comentar()
   {
@@ -68,7 +68,7 @@ export class PublicacionComponent
       this.hayMasComentarios = true;
       this.cargarComentarios();
     });
-  }
+  } //listo
 
   cargarComentarios(): void
   {
@@ -82,37 +82,34 @@ export class PublicacionComponent
         }
       }
     );
-  }
+  } //listo
 
   eliminar()
   {
     this.publicacionesService.eliminarPublicacion(this.publicacion._id).subscribe(() => {
       this.publicacionesService.emitirRecarga();
     });
-  }
+  } //listo
 
   activarEdicion()
   {
     this.editando = true;
     this.tituloEditado = this.publicacion.titulo;
     this.descripcionEditada = this.publicacion.descripcion;
-  }
+  } //listo
 
   guardarCambios()
   {
-    
-      this.publicacionesService.actualizarPublicacion(this.publicacion._id, {
-        titulo: this.tituloEditado,
-        descripcion: this.descripcionEditada
-      }).subscribe(actualizada => {
+    this.publicacionesService.actualizarPublicacion(this.publicacion._id, { titulo: this.tituloEditado, descripcion: this.descripcionEditada})
+      .subscribe(actualizada => {
         this.publicacion.titulo = actualizada.titulo;
         this.publicacion.descripcion = actualizada.descripcion;
         this.editando = false;
       });
-  }
+  } //listo
 
   cancelarEdicion()
   {
     this.editando = false;
-  }
+  } //listo
 }

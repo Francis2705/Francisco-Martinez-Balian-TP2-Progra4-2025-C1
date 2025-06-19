@@ -1,10 +1,6 @@
 <div class="card">
     <h3>{{ publicacion.titulo }}</h3>
-     <img
-  *ngIf="publicacion.imagen"
-  [src]="'http://localhost:3000/uploads/publicaciones/' + publicacion.imagen"
-  class="imagen-grande"
-/>
+    <img *ngIf="publicacion.imagen" [src]="'http://localhost:3000/uploads/publicaciones/' + publicacion.imagen" class="imagen-grande"/>
     <p>{{ publicacion.descripcion }}</p>
     <p>Autor: {{ publicacion.nombreUsuario }}</p>
 
@@ -33,16 +29,15 @@
     </button>
     <br>
     <div *ngIf="!editando">
-  <button *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario" (click)="activarEdicion()">Modificar</button>
-</div>
-
-    <div *ngIf="editando">
-    <input [(ngModel)]="tituloEditado" placeholder="Nuevo título" />
-    <textarea [(ngModel)]="descripcionEditada" placeholder="Nueva descripción"></textarea>
-    <br>
-    <button (click)="guardarCambios()">Guardar</button>
-    <button (click)="cancelarEdicion()">Cancelar</button>
+        <button *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario" (click)="activarEdicion()">Modificar</button>
     </div>
 
+    <div *ngIf="editando">
+        <input [(ngModel)]="tituloEditado" placeholder="Nuevo título" />
+        <textarea [(ngModel)]="descripcionEditada" placeholder="Nueva descripción"></textarea>
+        <br>
+        <button (click)="guardarCambios()">Guardar</button>
+        <button (click)="cancelarEdicion()">Cancelar</button>
+    </div>
     <br>
 </div>
