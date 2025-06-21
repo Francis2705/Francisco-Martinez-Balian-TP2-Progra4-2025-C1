@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Publicacion } from '../pages/publicacion';
 import { AuthService } from './auth.service';
 import { Observable, Subject } from 'rxjs';
+import { API_URL } from '../pages/direccion';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicacionesService
 {
-  private baseUrl = 'http://localhost:3000/publicaciones';
+  private baseUrl = `${API_URL}publicaciones`;
   authService = inject(AuthService);
 
   private _refrescarListado$ = new Subject<void>();

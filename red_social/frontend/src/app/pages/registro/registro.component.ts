@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } 
 import { Router, RouterLink } from '@angular/router';
 import { Usuario } from '../../clases/Usuario';
 import { AuthService } from '../../services/auth.service';
+import { API_URL } from '../direccion';
 
 @Component({
   selector: 'app-registro',
@@ -81,7 +82,7 @@ export class RegistroComponent implements OnInit
 
       try
       {
-        const response = await fetch('http://localhost:3000/autenticacion/registro', {
+        const response = await fetch(`${API_URL}autenticacion/registro`, {
           method: 'POST',
           body: formData,
         });
@@ -93,7 +94,7 @@ export class RegistroComponent implements OnInit
           console.log('registro exitoso', data);
           this.registro.set('registro exitoso');
           this.registro_usuario = data.data;
-          this.nombreImagen = `http://localhost:3000/uploads/${data.data.imagen}`;
+          this.nombreImagen = `${API_URL}uploads/${data.data.imagen}`;
           await this.authService.login(this.correo?.value, this.clave?.value);
           this.router.navigate(['/publicaciones']);
         }

@@ -5,6 +5,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Usuario } from '../../clases/Usuario';
+import { API_URL } from '../direccion';
 
 @Component({
   selector: 'app-dashboard-usuarios',
@@ -105,7 +106,7 @@ export class DashboardUsuariosComponent
 
       try
       {
-        const response = await fetch('http://localhost:3000/autenticacion/registro', {
+        const response = await fetch(`${API_URL}autenticacion/registro`, {
           method: 'POST',
           body: formData,
         });
@@ -117,7 +118,7 @@ export class DashboardUsuariosComponent
           console.log('registro exitoso', data);
           this.registro.set('registro exitoso');
           this.registro_usuario = data.data;
-          this.nombreImagen = `http://localhost:3000/uploads/${data.data.imagen}`;
+          this.nombreImagen = `${API_URL}uploads/${data.data.imagen}`;
         }
         else
         {

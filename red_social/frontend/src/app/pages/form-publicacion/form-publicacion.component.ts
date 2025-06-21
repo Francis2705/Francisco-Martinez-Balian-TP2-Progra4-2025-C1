@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { API_URL } from '../direccion';
 
 @Component({
   selector: 'app-form-publicacion',
@@ -50,7 +51,7 @@ export class FormPublicacionComponent
 
     try
     {
-      const response = await fetch('http://localhost:3000/publicaciones', {
+      const response = await fetch(`${API_URL}publicaciones`, {
         method: 'POST',
         body: formData,
       });

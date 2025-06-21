@@ -1,6 +1,6 @@
 <div class="card">
     <h3>{{ publicacion.titulo }}</h3>
-    <img *ngIf="publicacion.imagen" [src]="'http://localhost:3000/uploads/publicaciones/' + publicacion.imagen" class="imagen-grande"/>
+    <img *ngIf="publicacion.imagen" [src]="`${this.url}uploads/publicaciones/` + publicacion.imagen" class="imagen-grande"/>
     <p>{{ publicacion.descripcion }}</p>
     <p>Autor: {{ publicacion.nombreUsuario }}</p>
 

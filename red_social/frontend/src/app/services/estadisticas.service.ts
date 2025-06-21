@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URL } from '../pages/direccion';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstadisticasService
 {
-  private baseUrl = 'http://localhost:3000/estadisticas';
+  private baseUrl = `${API_URL}estadisticas`;
   token: string | null = null;
 
   constructor(private http: HttpClient) {}

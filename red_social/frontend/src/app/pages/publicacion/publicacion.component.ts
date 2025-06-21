@@ -4,6 +4,7 @@ import { PublicacionesService } from '../../services/publicaciones.service';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { API_URL } from '../direccion';
 
 @Component({
   selector: 'app-publicacion',
@@ -13,6 +14,8 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class PublicacionComponent
 {
+  url = API_URL;
+
   @Input() publicacion!: Publicacion;
   publicacionesService = inject(PublicacionesService);
   authService = inject(AuthService);

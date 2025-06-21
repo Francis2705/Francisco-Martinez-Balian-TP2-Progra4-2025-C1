@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { DatePipe, NgFor } from '@angular/common';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { PublicacionComponent } from '../publicacion/publicacion.component';
+import { API_URL } from '../direccion';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -30,7 +31,7 @@ export class MiPerfilComponent
 
   get imagenUrl(): string
   {
-    return `http://localhost:3000/uploads/${this.auth.usuarioLogueado.imagen}`;
+    return `${API_URL}uploads/${this.auth.usuarioLogueado.imagen}`;
   } //listo
 
   cargarPublicaciones()

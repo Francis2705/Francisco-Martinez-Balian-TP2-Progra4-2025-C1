@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { API_URL } from '../pages/direccion';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService
 {
+  private baseUrl = `${API_URL}autenticacion`;
+
   usuarioLogueado: any = null;
   usuariosTotales: any[] = [];
   nombresUsuarios: any[] = [];
@@ -17,7 +20,7 @@ export class AuthService
 
   async login(correo: string, clave: string): Promise<any>
   {
-    const response = await fetch('http://localhost:3000/autenticacion/login', {
+    const response = await fetch(`${this.baseUrl}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ correo, clave })
@@ -58,7 +61,7 @@ export class AuthService
     if (tiempoAntes > 0)
     {
       this.timeoutModal = setTimeout(() => {
-        const continuar = confirm('¿Querés seguir conectado?'); // Podés cambiar esto por un modal Angular real
+        const continuar = confirm('¿Querés seguir conectado?');
 
         if (continuar)
         {
@@ -77,7 +80,7 @@ export class AuthService
     const token = localStorage.getItem('token');
     try
     {
-      const response = await fetch('http://localhost:3000/autenticacion/refresh', {
+      const response = await fetch(`${this.baseUrl}/refresh`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,14 +168,14 @@ export class AuthService
 
   async getUsuariosTotales(): Promise<any>
   {
-    const response = await fetch('http://localhost:3000/autenticacion/usuarios');
+    const response = await fetch(`${this.baseUrl}/usuarios`);
     const data = await response.json();
     return data.listaUsuarios;
   } //listo
 
   async getNombreUsuarios(): Promise<any>
   {
-    const response = await fetch('http://localhost:3000/autenticacion/usuarios/nombres');
+    const response = await fetch(`${this.baseUrl}/usuarios/nombres`);
     const data = await response.json();
     console.log(data);
 
