@@ -31,3 +31,120 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+/* Centrado general de los botones */
+button {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  max-width: 200px;
+}
+
+button:hover {
+  background-color: #42a5f5;
+}
+
+/* Estilo para select */
+select {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  padding: 0.4rem;
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+/* Encabezado y controles */
+h2 {
+  text-align: center;
+  color: #90caf9;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  color: #bbb;
+  font-weight: bold;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-contenido {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 95vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.fondo
+{
+  background-color: #1a1a1a;
+}
+.bienvenida {
+  text-align: center;
+  font-size: 2rem;
+  color: #90caf9;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+.botones-superiores {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.boton-cerrar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.boton-rojo {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-rojo:hover {
+  background-color: #ef5350;
+}
