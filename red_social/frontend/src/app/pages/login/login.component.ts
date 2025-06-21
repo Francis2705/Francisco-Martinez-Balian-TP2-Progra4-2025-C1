@@ -2,10 +2,11 @@ import { Component, OnInit, signal, ChangeDetectorRef, inject } from '@angular/c
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit
   cdr = inject(ChangeDetectorRef);
   router = inject(Router);
   authService = inject(AuthService);
+  cargando = false;
 
   ngOnInit()
   {
@@ -35,6 +37,9 @@ export class LoginComponent implements OnInit
     }
     else
     {
+      this.cargando = true;
+      this.cdr.detectChanges();
+
       const correo = this.formulario.value.correo;
       const clave = this.formulario.value.clave;
 
@@ -44,10 +49,13 @@ export class LoginComponent implements OnInit
       {
         this.mensajeLogin.set('Sesión iniciada correctamente.');
         this.cdr.detectChanges();
-        this.router.navigate(['/publicaciones']);
+        setTimeout(() => {
+          this.router.navigate(['/publicaciones']);
+        }, 1500);
       }
       else
       {
+        this.cargando = false;
         if (data.error === 'mail inexistente')
         {
           this.mensajeLogin.set('Error, mail no registrado.');
