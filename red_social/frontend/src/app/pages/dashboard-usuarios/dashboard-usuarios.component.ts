@@ -9,7 +9,7 @@ import { API_URL } from '../direccion';
 
 @Component({
   selector: 'app-dashboard-usuarios',
-  imports: [RouterLink, NgIf, NgFor, FormsModule, ReactiveFormsModule, NgClass],
+  imports: [RouterLink, NgIf, NgFor, FormsModule, ReactiveFormsModule],
   templateUrl: './dashboard-usuarios.component.html',
   styleUrl: './dashboard-usuarios.component.css'
 })

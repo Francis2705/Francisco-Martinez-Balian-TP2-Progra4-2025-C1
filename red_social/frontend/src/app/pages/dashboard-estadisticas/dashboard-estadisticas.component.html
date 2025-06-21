@@ -21,7 +21,7 @@
     <div>
       <button (click)="cargarComentariosPorUsuario()">Cargar comentarios por usuario</button>
       <h4>Total de comentarios</h4>
-      <p>{{ datosComentariosTotales }} comentarios entre {{ desde }} y {{ hasta }}</p>
+      <p>{{ datosComentariosTotales }} Comentarios entre {{ desde }} y {{ hasta }}</p>
     </div>
     <div *ngIf="chartDataComentarios.labels!.length > 0">
       <h4>Comentarios por usuario</h4>
@@ -43,3 +43,6 @@
     </div>
   </div>
 }
+<div class="volver-btn">
+  <button routerLink="/publicaciones" class="btn-volver">Volver</button>
+</div>

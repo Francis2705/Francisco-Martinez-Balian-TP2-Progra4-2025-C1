@@ -42,12 +42,10 @@ export class AuthService
     const expTimestamp = payload.exp * 1000;
 
     localStorage.setItem('token', token);
-    console.log(usuario);
     localStorage.setItem('usuario', JSON.stringify(usuario));
     localStorage.setItem('expiracion', expTimestamp.toString());
 
     this.usuarioLogueado = usuario;
-
     const tiempoRestante = expTimestamp - Date.now();
 
     this.autoLogout(tiempoRestante / 1000);
