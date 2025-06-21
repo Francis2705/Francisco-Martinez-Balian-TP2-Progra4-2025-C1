@@ -1,4 +1,5 @@
-.card {
+.card
+{
   background-color: #1e1e1e;
   color: #e0e0e0;
   border-radius: 12px;
@@ -7,17 +8,17 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-h3 {
+h3
+{
   color: #90caf9;
   margin-bottom: 1rem;
 }
-
-p {
+p
+{
   margin: 0.5rem 0;
 }
-
-button {
+button
+{
   background-color: #2196f3;
   color: white;
   border: none;
@@ -28,13 +29,12 @@ button {
   transition: background-color 0.3s ease;
   font-weight: bold;
 }
-
-button:hover {
+button:hover
+{
   background-color: #42a5f5;
 }
-
-textarea,
-input[type="text"] {
+textarea, input[type="text"]
+{
   width: 100%;
   padding: 0.6rem;
   margin-top: 0.3rem;
@@ -44,25 +44,25 @@ input[type="text"] {
   border: 1px solid #444;
   border-radius: 6px;
 }
-
-.comentario-formulario {
+.comentario-formulario
+{
   margin-top: 1rem;
 }
-
-ul {
+ul
+{
   padding-left: 1.2rem;
   margin-top: 1rem;
 }
-
-li {
+li
+{
   margin-bottom: 0.5rem;
 }
-
-input::placeholder,
-textarea::placeholder {
+input::placeholder, textarea::placeholder
+{
   color: #aaa;
 }
-.boton {
+.boton
+{
   background-color: #2196f3;
   color: white;
   border: none;
@@ -75,44 +75,44 @@ textarea::placeholder {
   display: inline-block;
   width: auto;
 }
-
-.boton:hover {
+.boton:hover
+{
   background-color: #42a5f5;
 }
-
-.btn-danger {
+.btn-danger
+{
   background-color: #e53935 !important;
 }
-
-.btn-danger:hover {
+.btn-danger:hover
+{
   background-color: #ef5350 !important;
 }
-
-.botones-edicion {
+.botones-edicion
+{
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
 }
-
-.centrado {
+.centrado
+{
   text-align: center;
   margin-top: 1rem;
 }
-
-.botones-like-dislike {
+.botones-like-dislike
+{
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin: 1rem 0;
 }
-
-.comentario-formulario {
+.comentario-formulario
+{
   margin-top: 1rem;
   text-align: center;
 }
-
-.comentario-formulario textarea {
+.comentario-formulario textarea
+{
   width: 100%;
   padding: 0.6rem;
   background-color: #2c2c2c;
@@ -121,22 +121,22 @@ textarea::placeholder {
   color: #e0e0e0;
   margin-bottom: 0.5rem;
 }
-
-input::placeholder,
-textarea::placeholder {
+input::placeholder, textarea::placeholder
+{
   color: #aaa;
 }
-
-.centrado {
+.centrado
+{
   text-align: center;
   margin-top: 1rem;
 }
-.imagen-grande {
+.imagen-grande
+{
   display: block;
-  max-width: 600px;    /* o 80%, o 500px según lo que te guste */
+  max-width: 600px;
   width: 100%;
   height: auto;
-  margin: 1rem auto;   /* la centra horizontalmente */
+  margin: 1rem auto;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }

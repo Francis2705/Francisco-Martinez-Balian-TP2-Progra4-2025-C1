@@ -1,16 +1,22 @@
-<p><strong>Nombre:</strong> {{ this.auth.usuarioLogueado.nombre }}</p>
-<p><strong>Apellido:</strong> {{ this.auth.usuarioLogueado.apellido }}</p>
-<p><strong>Correo:</strong> {{ this.auth.usuarioLogueado.correo }}</p>
-<p><strong>Nombre de usuario:</strong> {{ this.auth.usuarioLogueado.nombre_usuario }}</p>
-<p><strong>Descripción:</strong> {{ this.auth.usuarioLogueado.descripcion }}</p>
-<p><strong>Fecha de nacimiento:</strong> {{ this.auth.usuarioLogueado.fecha_nacimiento | date }}</p>
-<p><strong>Tipo:</strong> {{ this.auth.usuarioLogueado.tipo }}</p>
+<div class="perfil-container">
+  <div class="perfil-card">
+    <h2 class="perfil-titulo">Mi Perfil</h2>
 
-<img [src]="imagenUrl" alt="">
+    <img [src]="imagenUrl" alt="Imagen de perfil" class="perfil-imagen" />
 
-<button routerLink="/publicaciones">Publicaciones</button>
+    <p><strong>Nombre:</strong> {{ this.auth.usuarioLogueado.nombre }}</p>
+    <p><strong>Apellido:</strong> {{ this.auth.usuarioLogueado.apellido }}</p>
+    <p><strong>Correo:</strong> {{ this.auth.usuarioLogueado.correo }}</p>
+    <p><strong>Nombre de usuario:</strong> {{ this.auth.usuarioLogueado.nombre_usuario }}</p>
+    <p><strong>Descripción:</strong> {{ this.auth.usuarioLogueado.descripcion }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ this.auth.usuarioLogueado.fecha_nacimiento | date }}</p>
+    <p><strong>Tipo:</strong> {{ this.auth.usuarioLogueado.tipo }}</p>
 
-<h3>ultimas publicaciones:</h3>
+    <button routerLink="/publicaciones">Volver a publicaciones</button>
+  </div>
+</div>
+
+<h3>Ultimas publicaciones:</h3>
 <div *ngFor="let pub of publicaciones">
-    <app-publicacion [publicacion]="pub"></app-publicacion>
+  <app-publicacion [publicacion]="pub"></app-publicacion>
 </div>

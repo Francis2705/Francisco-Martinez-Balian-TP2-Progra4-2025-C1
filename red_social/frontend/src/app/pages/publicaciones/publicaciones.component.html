@@ -1,53 +1,51 @@
 <div class="fondo">
-    <h2 class="bienvenida">Bienvenido {{ this.authService.usuarioLogueado.nombre }}</h2>
-    <div class="botones-superiores">
-  <button routerLink="/mi-perfil">Mi perfil</button>
+  <h2 class="bienvenida">Bienvenido {{ this.authService.usuarioLogueado.nombre }}</h2>
+  <div class="botones-superiores">
+    <button routerLink="/mi-perfil">Mi perfil</button>
 
-  @if (this.authService.usuarioLogueado.tipo === 'administrador') {
-    <button routerLink="/dashboard-usuarios">Administrar usuarios</button>
-    <button routerLink="/dashboard-estadisticas">Ver estadísticas</button>
-  }
+    @if (this.authService.usuarioLogueado.tipo === 'administrador')
+    {
+      <button routerLink="/dashboard-usuarios">Administrar usuarios</button>
+      <button routerLink="/dashboard-estadisticas">Ver estadísticas</button>
+    }
 
-  <button routerLink="/form-publicacion">Crear publicación</button>
-</div>
+    <button routerLink="/form-publicacion">Crear publicación</button>
+  </div>
 
-<div class="boton-cerrar-container">
-  <button class="boton-rojo" (click)="cerrarSesion()">Cerrar sesión</button>
-</div>
+  <div class="boton-cerrar-container">
+    <button class="boton-rojo" (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
 
-<div>
+  <div>
     <h2>Publicaciones</h2>
 
     <div style="text-align: center; margin-bottom: 1rem;">
-  <label for="orden">Ordenar por:</label>
-  <select [(ngModel)]="orden" (change)="cambiarOrden(orden)">
-    <option value="fecha">Fecha (más reciente)</option>
-    <option value="likes">Me gusta (mayor a menor)</option>
-  </select>
+      <label for="orden">Ordenar por:</label>
+      <select [(ngModel)]="orden" (change)="cambiarOrden(orden)">
+        <option value="fecha">Fecha (más reciente)</option>
+        <option value="likes">Me gusta (mayor a menor)</option>
+      </select>
 
-  <label for="usuario">Filtrar por usuario:</label>
-  <select [(ngModel)]="usuarioSeleccionado" (change)="cambiarUsuario(usuarioSeleccionado)">
-    <option [ngValue]="">Todos los usuarios</option>
-    <option *ngFor="let usuario of usuarioTotales | async" [ngValue]="usuario.correo">
-      {{ usuario.correo }}
-    </option>
-  </select>
-</div>
+      <label for="usuario">Filtrar por usuario:</label>
+      <select [(ngModel)]="usuarioSeleccionado" (change)="cambiarUsuario(usuarioSeleccionado)">
+        <option [ngValue]="">Todos los usuarios</option>
+        <option *ngFor="let usuario of usuarioTotales | async" [ngValue]="usuario.correo">{{ usuario.correo }}</option>
+      </select>
+    </div>
 
     <div *ngFor="let pub of publicaciones">
-        <app-publicacion [publicacion]="pub"></app-publicacion>
-        <button (click)="abrirModal(pub)">Ver en grande</button> <!--agregado-->
+      <app-publicacion [publicacion]="pub"></app-publicacion>
+      <button (click)="abrirModal(pub)">Ver en grande</button>
     </div>
 
     <button (click)="paginaAnterior()" [disabled]="offset === 0">Anterior</button>
     <button (click)="siguientePagina()" [disabled]="!hayMasPublicaciones">Siguiente</button>
 
-    <!-- Modal de publicación ampliada -->
     <div class="modal-backdrop" *ngIf="publicacionSeleccionada">
-        <div class="modal-contenido">
-            <span class="cerrar" (click)="cerrarModal()">&times;</span>
-            <app-publicacion [publicacion]="publicacionSeleccionada"></app-publicacion>
-        </div>
+      <div class="modal-contenido">
+        <span class="cerrar" (click)="cerrarModal()">&times;</span>
+        <app-publicacion [publicacion]="publicacionSeleccionada"></app-publicacion>
+      </div>
     </div>
-</div>
+  </div>
 </div>

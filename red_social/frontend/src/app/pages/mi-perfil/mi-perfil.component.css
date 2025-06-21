@@ -1,0 +1,52 @@
+.perfil-container
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.perfil-card
+{
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 600px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+.perfil-titulo
+{
+  color: #90caf9;
+  margin-bottom: 1.5rem;
+}
+.perfil-card p
+{
+  margin: 0.6rem 0;
+}
+.perfil-imagen
+{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  border: 2px solid #90caf9;
+}
+button
+{
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover
+{
+  background-color: #42a5f5;
+}

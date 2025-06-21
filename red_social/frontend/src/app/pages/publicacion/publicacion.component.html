@@ -1,67 +1,58 @@
 <div class="card">
-    <h3>{{ publicacion.titulo }}</h3>
-    <img *ngIf="publicacion.imagen" [src]="`${this.url}uploads/publicaciones/` + publicacion.imagen" class="imagen-grande"/>
-    <p>{{ publicacion.descripcion }}</p>
-    <p>Autor: {{ publicacion.nombreUsuario }}</p>
+  <h3>{{ publicacion.titulo }}</h3>
+  <img *ngIf="publicacion.imagen" [src]="`${this.url}uploads/publicaciones/` + publicacion.imagen" class="imagen-grande"/>
+  <p>{{ publicacion.descripcion }}</p>
+  <p>Autor: {{ publicacion.nombreUsuario }}</p>
 
-<!-- Botones Like / Dislike -->
-<div class="botones-like-dislike">
-  <button class="boton" (click)="likear()" title="Dar me gusta">Like 👍 ({{ publicacion.meGustas.length }})</button>
-  <button class="boton" (click)="deslikear()" title="Quitar me gusta">Dislike 👎</button>
-</div>
-
-<!-- Comentario -->
-<div class="comentario-formulario">
-  <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></textarea>
-  <div class="centrado">
-    <button class="boton" (click)="comentar()" title="Enviar comentario">💬 Comentar</button>
+  <!-- Botones Like / Dislike -->
+  <div class="botones-like-dislike">
+    <button class="boton" (click)="likear()" title="Dar me gusta">Like 👍 ({{ publicacion.meGustas.length }})</button>
+    <button class="boton" (click)="deslikear()" title="Quitar me gusta">Dislike 👎</button>
   </div>
-</div>
 
-    <div *ngIf="comentarios.length > 0">
-        <h4>Comentarios:</h4>
-        <ul>
-            <li *ngFor="let comentario of comentarios">
-            <strong>{{ comentario.usuario?.nombre || 'Anónimo' }}</strong>: {{ comentario.texto }}
-            </li>
-        </ul>
+  <!-- Comentario -->
+  <div class="comentario-formulario">
+    <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></textarea>
+    <div class="centrado">
+      <button class="boton" (click)="comentar()" title="Enviar comentario">💬 Comentar</button>
     </div>
+  </div>
 
-    <!-- Botón cargar más -->
-<div class="centrado" *ngIf="hayMasComentarios">
-  <button (click)="cargarComentarios()" class="boton">Cargar más</button>
-</div>
+  <div *ngIf="comentarios.length > 0">
+    <h4>Comentarios:</h4>
+    <ul>
+        <li *ngFor="let comentario of comentarios">
+          <strong>{{ comentario.usuario?.nombre || 'Anónimo' }}</strong>: {{ comentario.texto }}
+        </li>
+    </ul>
+  </div>
 
-<!-- Botón Eliminar -->
-<div class="centrado">
-  <button 
-    *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario || 
-           this.authService.usuarioLogueado.tipo === 'administrador'" 
-    (click)="eliminar()" 
-    class="boton btn-danger">
-    🗑️ Eliminar
-  </button>
-</div>
+  <!-- Botón cargar más -->
+  <div class="centrado" *ngIf="hayMasComentarios">
+    <button (click)="cargarComentarios()" class="boton">Cargar más</button>
+  </div>
 
+  <!-- Botón Eliminar -->
+  <div class="centrado">
+    <button 
+      *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario || 
+        this.authService.usuarioLogueado.tipo === 'administrador'" (click)="eliminar()" class="boton btn-danger">🗑️ Eliminar</button>
+  </div>
 
     <!-- Botón Modificar -->
-<div *ngIf="!editando" class="centrado">
-  <button 
-    *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario" 
-    (click)="activarEdicion()" 
-    class="boton">
-    Modificar
-  </button>
-</div>
-
-
-    <!-- Edición -->
-<div *ngIf="editando" class="botones-edicion">
-  <input [(ngModel)]="tituloEditado" placeholder="Nuevo título" />
-  <textarea [(ngModel)]="descripcionEditada" placeholder="Nueva descripción"></textarea>
-  <div class="botones-edicion">
-    <button class="boton" (click)="guardarCambios()" title="Guardar cambios">💾 Guardar</button>
-  <button class="boton" (click)="cancelarEdicion()" title="Cancelar edición">❌ Cancelar</button>
+  <div *ngIf="!editando" class="centrado">
+    <button 
+      *ngIf="this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario" 
+        (click)="activarEdicion()" class="boton">Modificar</button>
   </div>
-</div>
+
+  <!-- Edición -->
+  <div *ngIf="editando" class="botones-edicion">
+    <input [(ngModel)]="tituloEditado" placeholder="Nuevo título" />
+    <textarea [(ngModel)]="descripcionEditada" placeholder="Nueva descripción"></textarea>
+    <div class="botones-edicion">
+      <button class="boton" (click)="guardarCambios()" title="Guardar cambios">💾 Guardar</button>
+      <button class="boton" (click)="cancelarEdicion()" title="Cancelar edición">❌ Cancelar</button>
+    </div>
+  </div>
 </div>

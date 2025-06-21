@@ -7,16 +7,16 @@
     <h2>Usuarios</h2>
     <div class="tabla-contenedor">
         <table>
-        <tr *ngFor="let u of usuarios">
-            <td>{{ u.nombre }}</td>
-            <td>{{ u.correo }}</td>
-            <td>{{ u.tipo }}</td>
-            <td>{{ u.activo ? 'Activo' : 'Inactivo' }}</td>
-            <td>
-            <button *ngIf="u.activo" (click)="deshabilitarUsuario(u._id)">Deshabilitar</button>
-            <button *ngIf="!u.activo" (click)="habilitarUsuario(u._id)">Habilitar</button>
-            </td>
-        </tr>
+            <tr *ngFor="let u of usuarios">
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.correo }}</td>
+                <td>{{ u.tipo }}</td>
+                <td>{{ u.activo ? 'Activo' : 'Inactivo' }}</td>
+                <td>
+                    <button *ngIf="u.activo" (click)="deshabilitarUsuario(u._id)">Deshabilitar</button>
+                    <button *ngIf="!u.activo" (click)="habilitarUsuario(u._id)">Habilitar</button>
+                </td>
+            </tr>
         </table>
     </div>
 
