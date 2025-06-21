@@ -23,8 +23,8 @@ export class PublicacionesComponent
   offset = 0;
   limit = 5;
   usuarioSeleccionado: string = 'Todos los usuarios';
-
   publicacionSeleccionada: any = null;
+  hayMasPublicaciones: boolean = true;
 
   ngOnInit(): void
   {
@@ -44,12 +44,6 @@ export class PublicacionesComponent
   cerrarModal()
   {
     this.publicacionSeleccionada = null;
-  } //listo
-
-  mostrar()
-  {
-    this.authService.usuarioLogueado = this.authService.getUsuario();
-    console.log(this.authService.usuarioLogueado);
   } //listo
 
   cerrarSesion()
@@ -86,8 +80,8 @@ export class PublicacionesComponent
   {
     this.publicacionesService.listarPublicaciones(this.orden, this.offset, this.limit, this.usuarioSeleccionado)
       .subscribe(data => {
-        console.log('Publicaciones recibidas:', data);
         this.publicaciones = data;
+        this.hayMasPublicaciones = data.length === this.limit;
       });
   } //listo
 }

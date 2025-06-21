@@ -1,7 +1,3 @@
-<p>publicaciones works!</p>
-<button (click)="mostrar()">mostrar</button>
-<br>
-<br>
 <button routerLink="/mi-perfil">Mi perfil</button>
 <p>hola {{this.authService.usuarioLogueado.nombre}}</p>
 
@@ -41,7 +37,7 @@
     </div>
 
     <button (click)="paginaAnterior()" [disabled]="offset === 0">Anterior</button>
-    <button (click)="siguientePagina()">Siguiente</button>
+    <button (click)="siguientePagina()" [disabled]="!hayMasPublicaciones">Siguiente</button>
 
     <!-- Modal de publicación ampliada -->
     <div class="modal-backdrop" *ngIf="publicacionSeleccionada">

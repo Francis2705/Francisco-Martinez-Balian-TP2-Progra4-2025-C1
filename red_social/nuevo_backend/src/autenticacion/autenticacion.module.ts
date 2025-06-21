@@ -9,7 +9,7 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
   imports: [
     MongooseModule.forFeature([{name: 'Autenticacion', schema: schema}]),
-    JwtModule.register({secret: 'clave_secreta', signOptions: { expiresIn: '60s' },})
+    JwtModule.register({secret: 'clave_secreta', signOptions: { expiresIn: '900s' },})
   ],
   controllers: [AutenticacionController],
   providers: [AutenticacionService, JwtStrategy],

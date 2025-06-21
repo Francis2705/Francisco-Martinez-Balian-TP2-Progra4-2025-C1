@@ -109,7 +109,7 @@ export class AutenticacionService
       nombre_usuario: usuario.nombre_usuario,
       tipo: usuario.tipo
     };
-    const token = this.jwtService.sign(payload, { expiresIn: '60s' });
+    const token = this.jwtService.sign(payload, { expiresIn: '900s' });
 
     return {
       ok: true,
@@ -143,6 +143,6 @@ export class AutenticacionService
       tipo: usuario.tipo
     };
 
-    return this.jwtService.sign(payload, { expiresIn: '60s' });
+    return this.jwtService.sign(payload, { expiresIn: '900s' });
   } //listo
 }
