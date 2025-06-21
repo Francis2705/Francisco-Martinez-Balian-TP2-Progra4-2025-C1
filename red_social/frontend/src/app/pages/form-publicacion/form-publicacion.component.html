@@ -8,7 +8,11 @@
     <textarea formControlName="descripcion"></textarea>
 
     <label>Imagen:</label>
-    <input type="file" (change)="onFileChange($event)" />
+    <input type="file" (change)="onFileChange($event)" accept=".jpg,.jpeg,.png"/>
 
+    <div *ngIf="formulario.get('imagen')?.invalid && formulario.get('imagen')?.touched" class="text-danger"> La imagen es obligatoria. </div>
     <button type="submit">Publicar</button>
+    <div class="btn-volver-container">
+        <button routerLink="/publicaciones" class="btn-volver">Volver</button>
+    </div>
 </form>

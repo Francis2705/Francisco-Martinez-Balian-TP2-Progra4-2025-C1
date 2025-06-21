@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { API_URL } from '../direccion';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-form-publicacion',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf, RouterLink],
   templateUrl: './form-publicacion.component.html',
   styleUrl: './form-publicacion.component.css'
 })
@@ -25,18 +26,30 @@ export class FormPublicacionComponent
     this.formulario = this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
-      imagen: [null]
+      imagen: [null, Validators.required]
     });
   } //listo
 
   onFileChange(event: any)
   {
-    this.imagenSeleccionada = event.target.files[0];
+    const file = event.target.files[0];
+
+    if (file)
+    {
+      this.imagenSeleccionada = file;
+      this.formulario.get('imagen')?.setValue(file);
+      this.formulario.get('imagen')?.setErrors(null);
+    }
+    else
+    {
+      this.imagenSeleccionada = null;
+      this.formulario.get('imagen')?.setErrors({ required: true });
+    }
   } //listo
 
   async enviar()
   {
-    if (this.formulario.invalid) return;
+    if (this.formulario.invalid) { this.formulario.markAllAsTouched(); return; }
 
     const formData = new FormData();
     formData.append('titulo', this.formulario.value.titulo);
