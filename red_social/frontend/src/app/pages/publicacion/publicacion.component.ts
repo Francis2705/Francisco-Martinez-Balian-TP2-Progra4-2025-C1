@@ -115,4 +115,12 @@ export class PublicacionComponent
   {
     this.editando = false;
   } //listo
+
+//   puedeEditar(): boolean {
+//   return this.authService.usuarioLogueado.correo === this.publicacion.correoUsuario;
+// }
+
+// puedeEliminar(): boolean {
+//   return this.puedeEditar() || this.authService.usuarioLogueado.tipo === 'administrador';
+// }
 }

@@ -1,6 +1,142 @@
-.imagen-grande {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
+.card {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+  color: #90caf9;
   margin-bottom: 1rem;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #42a5f5;
+}
+
+textarea,
+input[type="text"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  border-radius: 6px;
+}
+
+.comentario-formulario {
+  margin-top: 1rem;
+}
+
+ul {
+  padding-left: 1.2rem;
+  margin-top: 1rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aaa;
+}
+.boton {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  display: inline-block;
+  width: auto;
+}
+
+.boton:hover {
+  background-color: #42a5f5;
+}
+
+.btn-danger {
+  background-color: #e53935 !important;
+}
+
+.btn-danger:hover {
+  background-color: #ef5350 !important;
+}
+
+.botones-edicion {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.centrado {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.botones-like-dislike {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.comentario-formulario {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.comentario-formulario textarea {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aaa;
+}
+
+.centrado {
+  text-align: center;
+  margin-top: 1rem;
+}
+.imagen-grande {
+  display: block;
+  max-width: 600px;    /* o 80%, o 500px según lo que te guste */
+  width: 100%;
+  height: auto;
+  margin: 1rem auto;   /* la centra horizontalmente */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
