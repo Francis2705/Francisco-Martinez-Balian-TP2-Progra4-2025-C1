@@ -56,7 +56,7 @@ export class AuthService
   programarRenovacionToken(segundos: number): void
   {
     clearTimeout(this.timeoutModal);
-    const tiempoAntes = segundos - 30;
+    const tiempoAntes = segundos - 600;
     if (tiempoAntes > 0)
     {
       this.timeoutModal = setTimeout(() => {
