@@ -4,9 +4,10 @@
   color: #e0e0e0;
   border-radius: 12px;
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin: 2rem auto;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 70%;
 }
 h3
 {

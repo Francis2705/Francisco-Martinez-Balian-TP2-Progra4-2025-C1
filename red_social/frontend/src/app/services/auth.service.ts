@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { API_URL } from '../pages/direccion';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -55,20 +56,30 @@ export class AuthService
   programarRenovacionToken(segundos: number): void
   {
     clearTimeout(this.timeoutModal);
-    const tiempoAntes = segundos - 600;
+    const tiempoAntes = segundos - 30;
     if (tiempoAntes > 0)
     {
       this.timeoutModal = setTimeout(() => {
-        const continuar = confirm('¿Querés seguir conectado?');
-
-        if (continuar)
-        {
-          this.renovarToken();
-        }
-        else
-        {
-          this.logout();
-        }
+        Swal.fire({
+          title: '¿Querés seguir conectado?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Sí',
+          cancelButtonText: 'No',
+          background: '#1e1e1e',
+          color: '#fff',
+          confirmButtonColor: '#2196f3',
+          cancelButtonColor: '#c62828',
+        }).then((result) => {
+          if (result.isConfirmed)
+          {
+            this.renovarToken();
+          }
+          else
+          {
+            this.logout();
+          }
+        });
       }, tiempoAntes * 1000);
     }
   } //listo
